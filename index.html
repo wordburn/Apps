@@ -28,43 +28,72 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .media-item p {
+            margin: 4px 0 0;
+            color: #666;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Media List</h1>
-        <div class="media-category">
-            <h2>Films/TV Shows</h2>
-            <div class="media-item">
-                <h3>Title: Example Film</h3>
-                <p>Notes: This is a placeholder for film/TV show notes.</p>
-            </div>
-            <!-- Repeat for other films/TV shows -->
-        </div>
-        <div class="media-category">
-            <h2>Books</h2>
-            <div class="media-item">
-                <h3>Title: Example Book</h3>
-                <p>Notes: This is a placeholder for book notes.</p>
-            </div>
-            <!-- Repeat for other books -->
-        </div>
-        <div class="media-category">
-            <h2>Games</h2>
-            <div class="media-item">
-                <h3>Title: Example Game</h3>
-                <p>Notes: This is a placeholder for game notes.</p>
-            </div>
-            <!-- Repeat for other games -->
-        </div>
-        <div class="media-category">
-            <h2>Podcasts</h2>
-            <div class="media-item">
-                <h3>Title: Example Podcast</h3>
-                <p>Notes: This is a placeholder for podcast notes.</p>
-            </div>
-            <!-- Repeat for other podcasts -->
-        </div>
+        <div id="media-container"></div>
     </div>
+
+    <script>
+        const mediaData = [
+            { title: "The Brutalist", type: "Film/TV", notes: "Recent addition" },
+            { title: "Anora", type: "Film/TV", notes: "Recent addition" },
+            { title: "The Patient", type: "Film/TV", notes: "Recommended thriller" },
+            { title: "Severance", type: "Film/TV", notes: "Season 1/2" },
+            { title: "The Boy and the Heron", type: "Film/TV", notes: "Studio Ghibli" },
+            { title: "The Creator", type: "Film/TV", notes: "Sci-fi" },
+            { title: "Reservoir Dogs", type: "Film/TV", notes: "Classic" },
+            { title: "Poor Things", type: "Film/TV", notes: "" },
+            { title: "The Power Broker", type: "Book", notes: "Robert Caro" },
+            { title: "The Maniac", type: "Book", notes: "Benjamin Labatut" },
+            { title: "Hyperion", type: "Book", notes: "Dan Simmons" },
+            { title: "Blood Meridian", type: "Book", notes: "Cormac McCarthy" },
+            { title: "Consider Phlebas", type: "Book", notes: "Iain M. Banks" },
+            { title: "The Wager", type: "Book", notes: "David Grann" },
+            { title: "Baldur's Gate 3", type: "Game", notes: "Current playthrough" },
+            { title: "Disco Elysium", type: "Game", notes: "RPG" },
+            { title: "Death Stranding 2", type: "Game", notes: "Upcoming" },
+            { title: "MGS Delta: Snake Eater", type: "Game", notes: "Remake" },
+            { title: "Assassin's Creed Mirage", type: "Game", notes: "" },
+            { title: "One Man's Trash", type: "Podcast", notes: "Chris Gethard episodes" },
+            { title: "Bad Actor", type: "Podcast", notes: "Hollywood Ponzi scheme" },
+            { title: "The Joe Rogan Experience", type: "Podcast", notes: "" },
+            { title: "Last Podcast On The Left", type: "Podcast", notes: "" },
+        ];
+
+        const categoryLabels = {
+            "Film/TV": "Films / TV Shows",
+            "Book": "Books",
+            "Game": "Games",
+            "Podcast": "Podcasts"
+        };
+
+        const categories = ["Film/TV", "Book", "Game", "Podcast"];
+        const container = document.getElementById("media-container");
+
+        categories.forEach(cat => {
+            const items = mediaData.filter(m => m.type === cat);
+            if (!items.length) return;
+
+            const section = document.createElement("div");
+            section.className = "media-category";
+            section.innerHTML = `<h2>${categoryLabels[cat]}</h2>`;
+
+            items.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "media-item";
+                div.innerHTML = `<h3>${item.title}</h3>${item.notes ? `<p>${item.notes}</p>` : ""}`;
+                section.appendChild(div);
+            });
+
+            container.appendChild(section);
+        });
+    </script>
 </body>
 </html>
