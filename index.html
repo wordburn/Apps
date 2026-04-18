@@ -5,94 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entertainment Tracker</title>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; background: #f4f4f9; padding: 20px; color: #333; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .controls { display: grid; grid-template-columns: 2fr 1fr 1fr auto auto; gap: 10px; margin-bottom: 20px; }
-        input, select, button { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        button { background: #0056b3; color: white; cursor: pointer; border: none; font-weight: bold; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f4f7f6; padding: 15px; color: #2d3436; }
+        .container { max-width: 900px; margin: auto; background: #ffffff; padding: 25px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h2 { margin-top: 0; font-weight: 800; color: #2d3436; border-bottom: 2px solid #dfe6e9; padding-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .controls { display: grid; grid-template-columns: 2fr 1fr 1fr auto auto; gap: 10px; margin-bottom: 25px; }
+        input, select, button { padding: 12px; border: 1px solid #dfe6e9; border-radius: 8px; font-size: 14px; outline: none; }
+        button { background-color: #0984e3; color: white; cursor: pointer; border: none; font-weight: 600; transition: 0.2s; }
+        button:hover { background-color: #74b9ff; }
+        .btn-csv { background-color: #00b894; }
         table { width: 100%; border-collapse: collapse; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #ddd; font-size: 14px; }
-        th { background: #f8f9fa; }
-        .badge { padding: 3px 8px; border-radius: 12px; font-size: 11px; text-decoration: none; font-weight: bold; }
-        .badge-imdb { background: #f5c518; color: #000; }
-        .badge-wiki { background: #e6e6e6; color: #333; border: 1px solid #ccc; }
-        .completed { color: #888; text-decoration: line-through; background: #fafafa; }
+        th, td { text-align: left; padding: 15px; border-bottom: 1px solid #f1f2f6; }
+        th { background-color: #f9f9fb; color: #636e72; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; text-decoration: none; font-weight: 700; display: inline-block; }
+        .badge-imdb { background-color: #f5c518; color: #000; }
+        .badge-wiki { background-color: #dfe6e9; color: #2d3436; border: 1px solid #b2bec3; }
+        .completed { background-color: #fdfdfd; color: #b2bec3; }
+        .completed strong { text-decoration: line-through; }
+        @media (max-width: 600px) { .controls { grid-template-columns: 1fr; } .hide-mobile { display: none; } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Media Tracker <small style="font-size: 10px; color: #999;">v2.2</small></h2>
+    <h2>Media Log <span style="font-size: 12px; font-weight: 400; color: #b2bec3;">v2.3</span></h2>
+    
     <div class="controls">
         <input type="text" id="title" placeholder="Title">
-        <select id="type"><option>Film/TV</option><option>Book</option><option>Podcast</option><option>Game</option></select>
+        <select id="type">
+            <option value="Film/TV">Film/TV</option>
+            <option value="Book">Book</option>
+            <option value="Podcast">Podcast</option>
+            <option value="Game">Game</option>
+        </select>
         <input type="text" id="notes" placeholder="Notes">
         <button onclick="addItem()">Add</button>
-        <button onclick="document.getElementById('csv').click()" style="background:#28a745">CSV</button>
-        <input type="file" id="csv" style="display:none" onchange="importCSV(this)">
+        <button onclick="document.getElementById('csvIn').click()" class="btn-csv">CSV</button>
+        <input type="file" id="csvIn" style="display:none" onchange="importCSV(this)">
     </div>
+
     <table>
-        <thead><tr><th>✓</th><th>Title</th><th>Type</th><th>Link</th><th>Score</th><th>Notes</th><th></th></tr></thead>
-        <tbody id="list"></tbody>
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Title</th>
+                <th class="hide-mobile">Source</th>
+                <th>Score</th>
+                <th>Notes</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
     </table>
 </div>
 
 <script>
+    // 1. BASELINE DATA
     const baseline = [
-        {t:"The Brutalist", ty:"Film/TV", n:"Recent"}, {t:"Anora", ty:"Film/TV", n:"Recent"},
-        {t:"The Power Broker", ty:"Book", n:"Caro"}, {t:"The Maniac", ty:"Book", n:"Labatut"},
-        {t:"Hyperion", ty:"Book", n:"Simmons"}, {t:"Baldur's Gate 3", ty:"Game", n:"RPG"}
+        { t: "The Brutalist", ty: "Film/TV", n: "Recent addition" },
+        { t: "Anora", ty: "Film/TV", n: "Recent addition" },
+        { t: "The Power Broker", ty: "Book", n: "Robert Caro" },
+        { t: "The Maniac", ty: "Book", n: "Benjamin Labatut" },
+        { t: "Hyperion", ty: "Book", n: "Dan Simmons" },
+        { t: "Baldur's Gate 3", ty: "Game", n: "Video game" }
     ];
 
     let items = [];
+
+    // 2. DEDUPLICATION LOGIC (Using Map as Copilot suggested)
     try {
         const saved = JSON.parse(localStorage.getItem('media_v2')) || [];
-        const map = new Map();
-        saved.forEach(i => map.set(i.t.toLowerCase(), i));
-        baseline.forEach(b => {
-            if(!map.has(b.t.toLowerCase())) map.set(b.t.toLowerCase(), {id:Date.now()+Math.random(), ...b, r:'', c:false, ts:null});
-        });
-        items = Array.from(map.values());
-    } catch(e) { items = baseline.map(b => ({id:Date.now()+Math.random(), ...b, r:'', c:false})); }
+        const mergedMap = new Map();
 
+        // Load existing progress first
+        saved.forEach(item => {
+            if (item.t) mergedMap.set(item.t.toLowerCase().trim(), item);
+        });
+
+        // Add baseline items if they aren't already there
+        baseline.forEach(base => {
+            const key = base.t.toLowerCase().trim();
+            if (!mergedMap.has(key)) {
+                mergedMap.set(key, {
+                    id: Date.now() + Math.random(),
+                    t: base.t,
+                    ty: base.ty,
+                    n: base.n,
+                    r: '',
+                    c: false,
+                    ts: null
+                });
+            }
+        });
+        items = Array.from(mergedMap.values());
+    } catch (e) {
+        items = baseline.map((b, i) => ({ id: Date.now()+i, ...b, r: '', c: false, ts: null }));
+    }
+
+    // 3. APP FUNCTIONS
     function render() {
         localStorage.setItem('media_v2', JSON.stringify(items));
-        const b = document.getElementById('list'); b.innerHTML = '';
-        items.sort((x,y) => x.c - y.c).forEach(i => {
-            const url = i.ty === 'Film/TV' ? `https://www.imdb.com/find?q=${encodeURIComponent(i.t)}` : `https://en.wikipedia.org/wiki/${encodeURIComponent(i.t)}`;
-            b.insertAdjacentHTML('beforeend', `
-                <tr class="${i.c?'completed':''}">
-                    <td><input type="checkbox" ${i.c?'checked':''} onchange="toggle(${i.id})"></td>
-                    <td><strong>${i.t}</strong></td><td>${i.ty}</td>
-                    <td><a href="${url}" target="_blank" class="badge ${i.ty==='Film/TV'?'badge-imdb':'badge-wiki'}">${i.ty==='Film/TV'?'IMDb':'Wiki'}</a></td>
-                    <td><input type="number" value="${i.r}" onchange="rate(${i.id},this.value)" style="width:40px"></td>
-                    <td><small>${i.n}</small></td>
-                    <td><button onclick="del(${i.id})" style="background:none;color:red;border:none;cursor:pointer">✕</button></td>
-                </tr>`);
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+
+        items.sort((a, b) => a.c - b.c).forEach(item => {
+            const isVisual = (item.ty === 'Film/TV');
+            const url = isVisual 
+                ? `https://www.imdb.com/find?q=${encodeURIComponent(item.t)}` 
+                : `https://en.wikipedia.org/wiki/${encodeURIComponent(item.t)}`;
+            
+            tbody.insertAdjacentHTML('beforeend', `
+                <tr class="${item.c ? 'completed' : ''}">
+                    <td><input type="checkbox" ${item.c ? 'checked' : ''} onchange="toggle(${item.id})"></td>
+                    <td><strong>${item.t}</strong> <br><small class="hide-mobile" style="color:#636e72">${item.ty}</small></td>
+                    <td><a href="${url}" target="_blank" class="badge ${isVisual ? 'badge-imdb' : 'badge-wiki'}">${isVisual ? 'IMDb' : 'Wiki'}</a></td>
+                    <td><input type="number" value="${item.r}" onchange="rate(${item.id}, this.value)" style="width:40px; border:none; background:transparent;"></td>
+                    <td><small>${item.n}</small></td>
+                    <td><button onclick="del(${item.id})" style="background:none; color:#ff7675; border:none; font-size:18px; cursor:pointer;">&times;</button></td>
+                </tr>
+            `);
         });
     }
 
     function addItem() {
-        const t = document.getElementById('title').value;
-        if(!t) return;
-        items.unshift({id:Date.now(), t, ty:document.getElementById('type').value, n:document.getElementById('notes').value, r:'', c:false});
+        const title = document.getElementById('title').value.trim();
+        if (!title) return;
+        items.unshift({ id: Date.now(), t: title, ty: document.getElementById('type').value, n: document.getElementById('notes').value, r: '', c: false });
         render();
+        document.getElementById('title').value = '';
     }
-    function toggle(id) { const i = items.find(x=>x.id===id); i.c = !i.c; render(); }
-    function rate(id, v) { items.find(x=>x.id===id).r = v; render(); }
-    function del(id) { if(confirm('Delete?')) { items = items.filter(x=>x.id!==id); render(); } }
+
+    function toggle(id) { const i = items.find(x => x.id === id); i.c = !i.c; render(); }
+    function rate(id, v) { items.find(x => x.id === id).r = v; render(); }
+    function del(id) { if(confirm('Delete?')) { items = items.filter(x => x.id !== id); render(); } }
+    
     function importCSV(input) {
         const reader = new FileReader();
         reader.onload = (e) => {
-            e.target.result.split('\n').slice(1).forEach(r => {
-                const c = r.split(',');
-                if(c[0] && !items.some(x=>x.t.toLowerCase()===c[0].trim().toLowerCase())) 
-                    items.push({id:Date.now()+Math.random(), t:c[0].trim(), ty:c[1]||'Film/TV', n:c[2]||'', r:'', c:false});
+            e.target.result.split('\n').slice(1).forEach(row => {
+                const cols = row.split(',');
+                if (cols[0] && !items.some(x => x.t.toLowerCase() === cols[0].trim().toLowerCase())) {
+                    items.push({ id: Date.now()+Math.random(), t: cols[0].trim(), ty: cols[1]||'Film/TV', n: cols[2]||'', r: '', c: false });
+                }
             });
             render();
         };
         reader.readAsText(input.files[0]);
     }
+
     render();
 </script>
 </body>
