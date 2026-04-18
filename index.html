@@ -2,220 +2,508 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>The List</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #111;
+            color: #eee;
+            padding-bottom: 80px;
         }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+
+        /* Header */
+        header {
+            background: #1a1a1a;
+            padding: 16px 20px 12px;
+            text-align: center;
+            border-bottom: 1px solid #2a2a2a;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        h1, h2 { color: #333; }
-        .media-item {
-            margin-bottom: 12px;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+
+        .eyebrows {
+            font-size: 3rem;
+            line-height: 1;
+            display: block;
+            filter: grayscale(0.3);
+        }
+
+        header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: #1a1a1a;
+            border-bottom: 1px solid #2a2a2a;
+            position: sticky;
+            top: 97px;
+            z-index: 99;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab {
+            flex: 1;
+            min-width: 70px;
+            padding: 10px 6px;
+            text-align: center;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #888;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .tab.active {
+            color: #fff;
+            border-bottom-color: #e5c100;
+        }
+
+        /* Section */
+        .section { display: none; padding: 0 16px; }
+        .section.active { display: block; }
+
+        .section-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            padding: 16px 0 10px;
+        }
+        .section-header h2 {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .counter {
+            font-size: 0.75rem;
+            background: #2a2a2a;
+            color: #aaa;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        .counter span { color: #e5c100; font-weight: 700; }
+
+        /* Media item */
+        .media-item {
+            background: #1c1c1e;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            padding: 14px;
+            border: 1px solid #2a2a2a;
+            transition: border-color 0.2s;
+        }
+        .media-item.done {
+            border-color: #2d4a2d;
+            background: #1a221a;
+        }
+
+        .item-top {
+            display: flex;
             align-items: flex-start;
+            gap: 12px;
         }
-        .media-item-text h3 {
-            margin: 0;
-            font-size: 1rem;
-            color: #222;
-        }
-        .media-item-text p {
-            margin: 4px 0 0;
-            color: #666;
-            font-size: 0.875rem;
-        }
-        .delete-btn {
-            background: none;
-            border: none;
-            color: #ccc;
-            font-size: 1.2rem;
+
+        /* Checkbox */
+        .check-circle {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid #444;
+            flex-shrink: 0;
             cursor: pointer;
-            padding: 0 0 0 10px;
-            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            margin-top: 1px;
+        }
+        .check-circle.checked {
+            background: #3a7d3a;
+            border-color: #3a7d3a;
+        }
+
+        .item-info { flex: 1; min-width: 0; }
+        .item-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.3;
+        }
+        .media-item.done .item-title {
+            color: #888;
+            text-decoration: line-through;
+        }
+        .item-note {
+            font-size: 0.78rem;
+            color: #777;
+            margin-top: 3px;
+        }
+
+        .item-badges {
+            display: flex;
+            gap: 6px;
+            align-items: center;
             flex-shrink: 0;
         }
-        .delete-btn:hover { color: #e55; }
-        .user-added .media-item-text h3::after {
-            content: " ★";
-            font-size: 0.7rem;
+
+        /* Badge link */
+        .badge-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .badge-imdb {
+            background: #f5c518;
+            color: #000;
+        }
+        .badge-wiki {
+            background: #eee;
+            color: #000;
+        }
+        .badge-user {
+            background: #333;
+            color: #888;
+            font-size: 0.65rem;
+        }
+
+        /* Stars */
+        .stars-row {
+            display: flex;
+            gap: 4px;
+            margin-top: 10px;
+        }
+        .star {
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: #444;
+            -webkit-tap-highlight-color: transparent;
+            transition: color 0.1s;
+        }
+        .star.lit { color: #e5c100; }
+
+        /* Review input */
+        .review-row {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+        }
+        .review-input {
+            flex: 1;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 8px 10px;
+            color: #eee;
+            font-size: 0.85rem;
+            font-family: inherit;
+            resize: none;
+            min-height: 36px;
+        }
+        .review-input:focus { outline: none; border-color: #555; }
+        .save-btn {
+            background: #333;
+            color: #eee;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .save-btn:active { background: #555; }
+
+        .review-display {
+            margin-top: 8px;
+            font-size: 0.82rem;
             color: #aaa;
-            vertical-align: super;
+            font-style: italic;
+            line-height: 1.4;
         }
 
         /* Add form */
-        #add-form {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #eee;
+        .add-section {
+            margin-top: 8px;
+            background: #1c1c1e;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #2a2a2a;
         }
-        #add-form h2 { margin-top: 0; }
-        #add-form input, #add-form select, #add-form textarea {
+        .add-section h3 {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 12px;
+        }
+        .add-section input, .add-section select, .add-section textarea {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            box-sizing: border-box;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #eee;
+            font-size: 0.9rem;
+            font-family: inherit;
+            margin-bottom: 8px;
             -webkit-appearance: none;
         }
-        #add-form button {
+        .add-section input:focus,
+        .add-section select:focus { outline: none; border-color: #555; }
+        .add-section select { background-image: none; }
+        .add-btn {
             width: 100%;
             padding: 12px;
-            background-color: #333;
-            color: white;
+            background: #e5c100;
+            color: #000;
             border: none;
-            border-radius: 5px;
-            font-size: 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
-        #add-form button:active { background-color: #555; }
+        .add-btn:active { background: #c9aa00; }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #555;
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 4px 0 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .delete-btn:active { color: #e55; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Media List</h1>
-        <div id="media-container"></div>
 
-        <div id="add-form">
-            <h2>Add Item</h2>
-            <input type="text" id="input-title" placeholder="Title" />
-            <select id="input-type">
-                <option value="Film/TV">Film / TV</option>
-                <option value="Book">Book</option>
-                <option value="Game">Game</option>
-                <option value="Podcast">Podcast</option>
-            </select>
-            <input type="text" id="input-notes" placeholder="Notes (optional)" />
-            <button onclick="addItem()">Add to List</button>
+<header>
+    <span class="eyebrows">🦱</span>
+    <h1>THE LIST</h1>
+</header>
+
+<div class="tabs" id="tabs"></div>
+<div id="sections"></div>
+
+<script>
+const BASELINE = [
+    { title: "The Brutalist", type: "Film/TV", note: "Recent addition" },
+    { title: "Anora", type: "Film/TV", note: "Recent addition" },
+    { title: "The Patient", type: "Film/TV", note: "Recommended thriller" },
+    { title: "Severance", type: "Film/TV", note: "Season 1/2" },
+    { title: "The Boy and the Heron", type: "Film/TV", note: "Studio Ghibli" },
+    { title: "The Creator", type: "Film/TV", note: "Sci-fi" },
+    { title: "Reservoir Dogs", type: "Film/TV", note: "Classic" },
+    { title: "Poor Things", type: "Film/TV", note: "" },
+    { title: "The Power Broker", type: "Book", note: "Robert Caro" },
+    { title: "The Maniac", type: "Book", note: "Benjamin Labatut" },
+    { title: "Hyperion", type: "Book", note: "Dan Simmons" },
+    { title: "Blood Meridian", type: "Book", note: "Cormac McCarthy" },
+    { title: "Consider Phlebas", type: "Book", note: "Iain M. Banks" },
+    { title: "The Wager", type: "Book", note: "David Grann" },
+    { title: "Baldur's Gate 3", type: "Game", note: "Current playthrough" },
+    { title: "Disco Elysium", type: "Game", note: "RPG" },
+    { title: "Death Stranding 2", type: "Game", note: "Upcoming" },
+    { title: "MGS Delta: Snake Eater", type: "Game", note: "Remake" },
+    { title: "Assassin's Creed Mirage", type: "Game", note: "" },
+    { title: "One Man's Trash", type: "Podcast", note: "Chris Gethard episodes" },
+    { title: "Bad Actor", type: "Podcast", note: "Hollywood Ponzi scheme" },
+    { title: "The Joe Rogan Experience", type: "Podcast", note: "" },
+    { title: "Last Podcast On The Left", type: "Podcast", note: "" },
+];
+
+const CATEGORIES = ["Film/TV", "Book", "Game", "Podcast"];
+const LABELS = { "Film/TV": "🎬 Film & TV", "Book": "📚 Books", "Game": "🎮 Games", "Podcast": "🎙 Podcasts" };
+
+function loadState() {
+    try { return JSON.parse(localStorage.getItem('theListState')) || {}; } catch { return {}; }
+}
+function saveState(state) {
+    localStorage.setItem('theListState', JSON.stringify(state));
+}
+function loadUserItems() {
+    try { return JSON.parse(localStorage.getItem('theListUserItems')) || []; } catch { return []; }
+}
+function saveUserItems(items) {
+    localStorage.setItem('theListUserItems', JSON.stringify(items));
+}
+
+let state = loadState();
+let userItems = loadUserItems();
+let activeTab = CATEGORIES[0];
+
+function getItemKey(item) {
+    return (item.source === 'user' ? 'u:' : 'b:') + item.type + ':' + item.title;
+}
+
+function allItemsForCategory(cat) {
+    const base = BASELINE.filter(m => m.type === cat).map(m => ({ ...m, source: 'baseline' }));
+    const user = userItems.filter(m => m.type === cat).map(m => ({ ...m, source: 'user' }));
+    return [...base, ...user].sort((a, b) => a.title.localeCompare(b.title));
+}
+
+function badgeHTML(item) {
+    const q = encodeURIComponent(item.title);
+    if (item.type === 'Film/TV') {
+        return `<a class="badge-link badge-imdb" href="https://www.imdb.com/find?q=${q}" target="_blank">IMDb</a>`;
+    }
+    if (item.type === 'Book') {
+        return `<a class="badge-link badge-wiki" href="https://en.wikipedia.org/w/index.php?search=${q}" target="_blank">Wiki</a>`;
+    }
+    return '';
+}
+
+function renderStars(key, rating) {
+    return [1,2,3,4,5].map(n =>
+        `<span class="star ${rating >= n ? 'lit' : ''}" onclick="setRating('${key}',${n})">★</span>`
+    ).join('');
+}
+
+function renderItem(item) {
+    const key = getItemKey(item);
+    const s = state[key] || {};
+    const done = !!s.done;
+    const rating = s.rating || 0;
+    const review = s.review || '';
+
+    const isUser = item.source === 'user';
+    const safeKey = key.replace(/'/g, "\\'");
+
+    return `
+    <div class="media-item ${done ? 'done' : ''}" id="item-${CSS.escape(key)}">
+        <div class="item-top">
+            <div class="check-circle ${done ? 'checked' : ''}" onclick="toggleDone('${safeKey}')">
+                ${done ? '✓' : ''}
+            </div>
+            <div class="item-info">
+                <div class="item-title">${item.title}</div>
+                ${item.note ? `<div class="item-note">${item.note}</div>` : ''}
+            </div>
+            <div class="item-badges">
+                ${badgeHTML(item)}
+                ${isUser ? `<button class="delete-btn" onclick="deleteUserItem('${safeKey}')">✕</button>` : ''}
+            </div>
         </div>
-    </div>
+        ${done ? `
+        <div class="stars-row">${renderStars(safeKey, rating)}</div>
+        <div class="review-row">
+            <textarea class="review-input" id="review-${CSS.escape(key)}" placeholder="Add a review…" rows="1">${review}</textarea>
+            <button class="save-btn" onclick="saveReview('${safeKey}')">Save</button>
+        </div>
+        ${review ? `<div class="review-display">"${review}"</div>` : ''}
+        ` : ''}
+    </div>`;
+}
 
-    <script>
-        const BASELINE = [
-            { title: "The Brutalist", type: "Film/TV", notes: "Recent addition" },
-            { title: "Anora", type: "Film/TV", notes: "Recent addition" },
-            { title: "The Patient", type: "Film/TV", notes: "Recommended thriller" },
-            { title: "Severance", type: "Film/TV", notes: "Season 1/2" },
-            { title: "The Boy and the Heron", type: "Film/TV", notes: "Studio Ghibli" },
-            { title: "The Creator", type: "Film/TV", notes: "Sci-fi" },
-            { title: "Reservoir Dogs", type: "Film/TV", notes: "Classic" },
-            { title: "Poor Things", type: "Film/TV", notes: "" },
-            { title: "The Power Broker", type: "Book", notes: "Robert Caro" },
-            { title: "The Maniac", type: "Book", notes: "Benjamin Labatut" },
-            { title: "Hyperion", type: "Book", notes: "Dan Simmons" },
-            { title: "Blood Meridian", type: "Book", notes: "Cormac McCarthy" },
-            { title: "Consider Phlebas", type: "Book", notes: "Iain M. Banks" },
-            { title: "The Wager", type: "Book", notes: "David Grann" },
-            { title: "Baldur's Gate 3", type: "Game", notes: "Current playthrough" },
-            { title: "Disco Elysium", type: "Game", notes: "RPG" },
-            { title: "Death Stranding 2", type: "Game", notes: "Upcoming" },
-            { title: "MGS Delta: Snake Eater", type: "Game", notes: "Remake" },
-            { title: "Assassin's Creed Mirage", type: "Game", notes: "" },
-            { title: "One Man's Trash", type: "Podcast", notes: "Chris Gethard episodes" },
-            { title: "Bad Actor", type: "Podcast", notes: "Hollywood Ponzi scheme" },
-            { title: "The Joe Rogan Experience", type: "Podcast", notes: "" },
-            { title: "Last Podcast On The Left", type: "Podcast", notes: "" },
-        ];
+function renderSection(cat) {
+    const items = allItemsForCategory(cat);
+    const done = items.filter(i => state[getItemKey(i)]?.done).length;
+    const total = items.length;
 
-        const categoryLabels = {
-            "Film/TV": "Films / TV Shows",
-            "Book": "Books",
-            "Game": "Games",
-            "Podcast": "Podcasts"
-        };
-        const categories = ["Film/TV", "Book", "Game", "Podcast"];
+    return `
+    <div class="section ${cat === activeTab ? 'active' : ''}" id="section-${cat.replace('/','_')}">
+        <div class="section-header">
+            <h2>${LABELS[cat]}</h2>
+            <div class="counter"><span>${done}</span> / ${total} done</div>
+        </div>
+        ${items.map(renderItem).join('')}
+        <div class="add-section">
+            <h3>+ Add to ${LABELS[cat]}</h3>
+            <input type="text" id="add-title-${cat.replace('/','_')}" placeholder="Title" />
+            <input type="text" id="add-note-${cat.replace('/','_')}" placeholder="Notes (optional)" />
+            <button class="add-btn" onclick="addItem('${cat}')">Add</button>
+        </div>
+    </div>`;
+}
 
-        // Load user-added items from localStorage
-        function getUserItems() {
-            try {
-                return JSON.parse(localStorage.getItem('userItems')) || [];
-            } catch { return []; }
-        }
+function renderTabs() {
+    const tabsEl = document.getElementById('tabs');
+    tabsEl.innerHTML = CATEGORIES.map(cat => {
+        const items = allItemsForCategory(cat);
+        const done = items.filter(i => state[getItemKey(i)]?.done).length;
+        return `<div class="tab ${cat === activeTab ? 'active' : ''}" onclick="switchTab('${cat}')">
+            ${LABELS[cat]}<br><small style="font-weight:400;color:#666">${done}/${items.length}</small>
+        </div>`;
+    }).join('');
+}
 
-        function saveUserItems(items) {
-            localStorage.setItem('userItems', JSON.stringify(items));
-        }
+function render() {
+    renderTabs();
+    document.getElementById('sections').innerHTML = CATEGORIES.map(renderSection).join('');
+}
 
-        function render() {
-            const userItems = getUserItems();
-            const container = document.getElementById("media-container");
-            container.innerHTML = "";
+function switchTab(cat) {
+    activeTab = cat;
+    render();
+    window.scrollTo(0, 0);
+}
 
-            categories.forEach(cat => {
-                const baseItems = BASELINE.filter(m => m.type === cat);
-                const added = userItems.filter(m => m.type === cat);
-                const allItems = [...baseItems, ...added];
-                if (!allItems.length) return;
+function toggleDone(key) {
+    state[key] = state[key] || {};
+    state[key].done = !state[key].done;
+    saveState(state);
+    render();
+}
 
-                const section = document.createElement("div");
-                section.className = "media-category";
-                section.innerHTML = `<h2>${categoryLabels[cat]}</h2>`;
+function setRating(key, n) {
+    state[key] = state[key] || {};
+    state[key].rating = n;
+    saveState(state);
+    render();
+}
 
-                baseItems.forEach(item => {
-                    section.appendChild(makeItemEl(item, false, null));
-                });
+function saveReview(key) {
+    const el = document.getElementById('review-' + CSS.escape(key));
+    if (!el) return;
+    state[key] = state[key] || {};
+    state[key].review = el.value.trim();
+    saveState(state);
+    render();
+}
 
-                added.forEach((item, idx) => {
-                    const globalIdx = userItems.findIndex(u => u === item);
-                    section.appendChild(makeItemEl(item, true, globalIdx));
-                });
+function addItem(cat) {
+    const catId = cat.replace('/','_');
+    const titleEl = document.getElementById('add-title-' + catId);
+    const noteEl = document.getElementById('add-note-' + catId);
+    const title = titleEl.value.trim();
+    if (!title) { titleEl.focus(); return; }
+    userItems.push({ title, type: cat, note: noteEl.value.trim() });
+    saveUserItems(userItems);
+    render();
+}
 
-                container.appendChild(section);
-            });
-        }
+function deleteUserItem(key) {
+    const parts = key.replace(/^u:/, '').split(':');
+    const type = parts[0];
+    const title = parts.slice(1).join(':');
+    userItems = userItems.filter(i => !(i.type === type && i.title === title));
+    saveUserItems(userItems);
+    delete state[key];
+    saveState(state);
+    render();
+}
 
-        function makeItemEl(item, isUserAdded, deleteIdx) {
-            const div = document.createElement("div");
-            div.className = "media-item" + (isUserAdded ? " user-added" : "");
-            div.innerHTML = `
-                <div class="media-item-text">
-                    <h3>${item.title}</h3>
-                    ${item.notes ? `<p>${item.notes}</p>` : ""}
-                </div>
-                ${isUserAdded ? `<button class="delete-btn" onclick="deleteItem(${deleteIdx})">✕</button>` : ""}
-            `;
-            return div;
-        }
-
-        function addItem() {
-            const title = document.getElementById("input-title").value.trim();
-            const type = document.getElementById("input-type").value;
-            const notes = document.getElementById("input-notes").value.trim();
-            if (!title) { alert("Please enter a title."); return; }
-
-            const userItems = getUserItems();
-            userItems.push({ title, type, notes });
-            saveUserItems(userItems);
-
-            document.getElementById("input-title").value = "";
-            document.getElementById("input-notes").value = "";
-            render();
-        }
-
-        function deleteItem(idx) {
-            const userItems = getUserItems();
-            userItems.splice(idx, 1);
-            saveUserItems(userItems);
-            render();
-        }
-
-        render();
-    </script>
+render();
+</script>
 </body>
 </html>
