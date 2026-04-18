@@ -3,74 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media Tracker</title>
+    <title>Entertainment Tracker</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f0f2f5; padding: 15px; color: #1c1e21; line-height: 1.5; }
-        .container { max-width: 1100px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-        h2 { margin-top: 0; font-weight: 700; border-bottom: 2px solid #e4e6eb; padding-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .controls { display: grid; grid-template-columns: 2fr 1fr 1fr auto auto; gap: 8px; margin-bottom: 20px; }
-        input, select, button { padding: 10px; border: 1px solid #ccd0d5; border-radius: 6px; font-size: 14px; }
-        button { background-color: #007bff; color: white; cursor: pointer; border: none; font-weight: 600; transition: background 0.2s; }
-        button:hover { background-color: #0056b3; }
-        .btn-import { background-color: #28a745; }
-        .btn-import:hover { background-color: #218838; }
-        .btn-delete { background-color: #dc3545; padding: 5px 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #e4e6eb; }
-        th { background-color: #f8f9fa; font-weight: 600; text-transform: uppercase; font-size: 12px; color: #65676b; }
-        .badge { display: inline-block; padding: 4px 10px; border-radius: 15px; font-size: 11px; text-decoration: none; font-weight: 700; text-align: center; min-width: 40px; }
-        .badge-imdb { background-color: #f5c518; color: #000; }
-        .badge-wiki { background-color: #e6e6e6; color: #333; border: 1px solid #ccc; }
-        .completed { background-color: #f9f9f9; color: #8a8d91; }
-        .completed strong { text-decoration: line-through; }
-        @media (max-width: 768px) { .controls { grid-template-columns: 1fr; } .hide-mobile { display: none; } }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #f4f4f9; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .controls { display: grid; grid-template-columns: 2fr 1fr 1fr auto auto; gap: 10px; margin-bottom: 20px; }
+        input, select, button { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #0056b3; color: white; cursor: pointer; border: none; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #ddd; font-size: 14px; }
+        th { background: #f8f9fa; }
+        .badge { padding: 3px 8px; border-radius: 12px; font-size: 11px; text-decoration: none; font-weight: bold; }
+        .badge-imdb { background: #f5c518; color: #000; }
+        .badge-wiki { background: #e6e6e6; color: #333; border: 1px solid #ccc; }
+        .completed { color: #888; text-decoration: line-through; background: #fafafa; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>
-        Entertainment Log
-        <span style="font-size: 12px; font-weight: normal; color: #65676b;">v2.1.0</span>
-    </h2>
-    
+    <h2>Media Tracker <small style="font-size: 10px; color: #999;">v2.2</small></h2>
     <div class="controls">
-        <input type="text" id="title" placeholder="Title (e.g., Anora)">
-        <select id="type">
-            <option value="Film/TV">Film/TV</option>
-            <option value="Book">Book</option>
-            <option value="Podcast">Podcast</option>
-            <option value="Game">Game</option>
-        </select>
+        <input type="text" id="title" placeholder="Title">
+        <select id="type"><option>Film/TV</option><option>Book</option><option>Podcast</option><option>Game</option></select>
         <input type="text" id="notes" placeholder="Notes">
         <button onclick="addItem()">Add</button>
-        <input type="file" id="csvFile" accept=".csv" style="display:none" onchange="importCSV(this)">
-        <button onclick="document.getElementById('csvFile').click()" class="btn-import">Import</button>
+        <button onclick="document.getElementById('csv').click()" style="background:#28a745">CSV</button>
+        <input type="file" id="csv" style="display:none" onchange="importCSV(this)">
     </div>
-
-    <table id="mediaTable">
-        <thead>
-            <tr>
-                <th>Status</th>
-                <th>Title</th>
-                <th class="hide-mobile">Type</th>
-                <th>Link</th>
-                <th>Rating</th>
-                <th class="hide-mobile">Completed On</th>
-                <th>Notes</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
+    <table>
+        <thead><tr><th>✓</th><th>Title</th><th>Type</th><th>Link</th><th>Score</th><th>Notes</th><th></th></tr></thead>
+        <tbody id="list"></tbody>
     </table>
 </div>
 
 <script>
-    // 1. MASTER BASELINE DATA
-    const baselineItems = [
-        { title: "The Brutalist", type: "Film/TV", notes: "Recent addition" },
-        { title: "Anora", type: "Film/TV", notes: "Recent addition" },
-        { title: "The Patient", type: "Film/TV", notes: "Thriller" },
-        { title: "Severance", type: "Film/TV", notes: "Sci-fi" },
-        { title: "The Power Broker", type: "Book", notes: "Robert Caro" },
-        { title: "The Maniac", type: "Book", notes: "
+    const baseline = [
+        {t:"The Brutalist", ty:"Film/TV", n:"Recent"}, {t:"Anora", ty:"Film/TV", n:"Recent"},
+        {t:"The Power Broker", ty:"Book", n:"Caro"}, {t:"The Maniac", ty:"Book", n:"Labatut"},
+        {t:"Hyperion", ty:"Book", n:"Simmons"}, {t:"Baldur's Gate 3", ty:"Game", n:"RPG"}
+    ];
+
+    let items = [];
+    try {
+        const saved = JSON.parse(localStorage.getItem('media_v2')) || [];
+        const map = new Map();
+        saved.forEach(i => map.set(i.t.toLowerCase(), i));
+        baseline.forEach(b => {
+            if(!map.has(b.t.toLowerCase())) map.set(b.t.toLowerCase(), {id:Date.now()+Math.random(), ...b, r:'', c:false, ts:null});
+        });
+        items = Array.from(map.values());
+    } catch(e) { items = baseline.map(b => ({id:Date.now()+Math.random(), ...b, r:'', c:false})); }
+
+    function render() {
+        localStorage.setItem('media_v2', JSON.stringify(items));
+        const b = document.getElementById('list'); b.innerHTML = '';
+        items.sort((x,y) => x.c - y.c).forEach(i => {
+            const url = i.ty === 'Film/TV' ? `https://www.imdb.com/find?q=${encodeURIComponent(i.t)}` : `https://en.wikipedia.org/wiki/${encodeURIComponent(i.t)}`;
+            b.insertAdjacentHTML('beforeend', `
+                <tr class="${i.c?'completed':''}">
+                    <td><input type="checkbox" ${i.c?'checked':''} onchange="toggle(${i.id})"></td>
+                    <td><strong>${i.t}</strong></td><td>${i.ty}</td>
+                    <td><a href="${url}" target="_blank" class="badge ${i.ty==='Film/TV'?'badge-imdb':'badge-wiki'}">${i.ty==='Film/TV'?'IMDb':'Wiki'}</a></td>
+                    <td><input type="number" value="${i.r}" onchange="rate(${i.id},this.value)" style="width:40px"></td>
+                    <td><small>${i.n}</small></td>
+                    <td><button onclick="del(${i.id})" style="background:none;color:red;border:none;cursor:pointer">✕</button></td>
+                </tr>`);
+        });
+    }
+
+    function addItem() {
+        const t = document.getElementById('title').value;
+        if(!t) return;
+        items.unshift({id:Date.now(), t, ty:document.getElementById('type').value, n:document.getElementById('notes').value, r:'', c:false});
+        render();
+    }
+    function toggle(id) { const i = items.find(x=>x.id===id); i.c = !i.c; render(); }
+    function rate(id, v) { items.find(x=>x.id===id).r = v; render(); }
+    function del(id) { if(confirm('Delete?')) { items = items.filter(x=>x.id!==id); render(); } }
+    function importCSV(input) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            e.target.result.split('\n').slice(1).forEach(r => {
+                const c = r.split(',');
+                if(c[0] && !items.some(x=>x.t.toLowerCase()===c[0].trim().toLowerCase())) 
+                    items.push({id:Date.now()+Math.random(), t:c[0].trim(), ty:c[1]||'Film/TV', n:c[2]||'', r:'', c:false});
+            });
+            render();
+        };
+        reader.readAsText(input.files[0]);
+    }
+    render();
+</script>
+</body>
+</html>
