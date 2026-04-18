@@ -55,7 +55,35 @@
 </div>
 
 <script>
-    let mediaList = JSON.parse(localStorage.getItem('mediaList')) || [];
+    function getBaselineItems() {
+        return [
+            { id: 1, title: "The Brutalist", type: "Film/TV", notes: "Recent addition", rating: '', completed: false, timestamp: null },
+            { id: 2, title: "Anora", type: "Film/TV", notes: "Recent addition", rating: '', completed: false, timestamp: null },
+            { id: 3, title: "The Patient", type: "Film/TV", notes: "Recommended thriller", rating: '', completed: false, timestamp: null },
+            { id: 4, title: "Severance", type: "Film/TV", notes: "Season 1/2", rating: '', completed: false, timestamp: null },
+            { id: 5, title: "The Boy and the Heron", type: "Film/TV", notes: "Studio Ghibli", rating: '', completed: false, timestamp: null },
+            { id: 6, title: "The Creator", type: "Film/TV", notes: "Sci-fi", rating: '', completed: false, timestamp: null },
+            { id: 7, title: "Reservoir Dogs", type: "Film/TV", notes: "Classic", rating: '', completed: false, timestamp: null },
+            { id: 8, title: "Poor Things", type: "Film/TV", notes: "", rating: '', completed: false, timestamp: null },
+            { id: 9, title: "The Power Broker", type: "Book", notes: "Robert Caro", rating: '', completed: false, timestamp: null },
+            { id: 10, title: "The Maniac", type: "Book", notes: "Benjamin Labatut", rating: '', completed: false, timestamp: null },
+            { id: 11, title: "Hyperion", type: "Book", notes: "Dan Simmons", rating: '', completed: false, timestamp: null },
+            { id: 12, title: "Blood Meridian", type: "Book", notes: "Cormac McCarthy", rating: '', completed: false, timestamp: null },
+            { id: 13, title: "Consider Phlebas", type: "Book", notes: "Iain M. Banks", rating: '', completed: false, timestamp: null },
+            { id: 14, title: "The Wager", type: "Book", notes: "David Grann", rating: '', completed: false, timestamp: null },
+            { id: 15, title: "Baldur's Gate 3", type: "Game", notes: "Current playthrough", rating: '', completed: false, timestamp: null },
+            { id: 16, title: "Disco Elysium", type: "Game", notes: "RPG", rating: '', completed: false, timestamp: null },
+            { id: 17, title: "Death Stranding 2", type: "Game", notes: "Upcoming", rating: '', completed: false, timestamp: null },
+            { id: 18, title: "MGS Delta: Snake Eater", type: "Game", notes: "Remake", rating: '', completed: false, timestamp: null },
+            { id: 19, title: "Assassin's Creed Mirage", type: "Game", notes: "", rating: '', completed: false, timestamp: null },
+            { id: 20, title: "One Man's Trash", type: "Podcast", notes: "Chris Gethard episodes", rating: '', completed: false, timestamp: null },
+            { id: 21, title: "Bad Actor", type: "Podcast", notes: "Hollywood Ponzi scheme", rating: '', completed: false, timestamp: null },
+            { id: 22, title: "The Joe Rogan Experience", type: "Podcast", notes: "", rating: '', completed: false, timestamp: null },
+            { id: 23, title: "Last Podcast On The Left", type: "Podcast", notes: "", rating: '', completed: false, timestamp: null }
+        ];
+    }
+
+    let mediaList = JSON.parse(localStorage.getItem('mediaList')) || getBaselineItems();
 
     function addItem() {
         const title = document.getElementById('title').value;
@@ -127,7 +155,7 @@
         });
     }
 
-    renderOnLoad = saveAndRender();
+    saveAndRender();
 </script>
 
 </body>
