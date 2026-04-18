@@ -19,29 +19,95 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
-        h1, h2 {
-            color: #333;
-        }
+        h1, h2 { color: #333; }
         .media-item {
-            margin-bottom: 20px;
-            padding: 15px;
+            margin-bottom: 12px;
+            padding: 12px 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
-        .media-item p {
+        .media-item-text h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: #222;
+        }
+        .media-item-text p {
             margin: 4px 0 0;
             color: #666;
+            font-size: 0.875rem;
         }
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 0 0 10px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .delete-btn:hover { color: #e55; }
+        .user-added .media-item-text h3::after {
+            content: " ★";
+            font-size: 0.7rem;
+            color: #aaa;
+            vertical-align: super;
+        }
+
+        /* Add form */
+        #add-form {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        #add-form h2 { margin-top: 0; }
+        #add-form input, #add-form select, #add-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+        }
+        #add-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        #add-form button:active { background-color: #555; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Media List</h1>
         <div id="media-container"></div>
+
+        <div id="add-form">
+            <h2>Add Item</h2>
+            <input type="text" id="input-title" placeholder="Title" />
+            <select id="input-type">
+                <option value="Film/TV">Film / TV</option>
+                <option value="Book">Book</option>
+                <option value="Game">Game</option>
+                <option value="Podcast">Podcast</option>
+            </select>
+            <input type="text" id="input-notes" placeholder="Notes (optional)" />
+            <button onclick="addItem()">Add to List</button>
+        </div>
     </div>
 
     <script>
-        const mediaData = [
+        const BASELINE = [
             { title: "The Brutalist", type: "Film/TV", notes: "Recent addition" },
             { title: "Anora", type: "Film/TV", notes: "Recent addition" },
             { title: "The Patient", type: "Film/TV", notes: "Recommended thriller" },
@@ -73,27 +139,83 @@
             "Game": "Games",
             "Podcast": "Podcasts"
         };
-
         const categories = ["Film/TV", "Book", "Game", "Podcast"];
-        const container = document.getElementById("media-container");
 
-        categories.forEach(cat => {
-            const items = mediaData.filter(m => m.type === cat);
-            if (!items.length) return;
+        // Load user-added items from localStorage
+        function getUserItems() {
+            try {
+                return JSON.parse(localStorage.getItem('userItems')) || [];
+            } catch { return []; }
+        }
 
-            const section = document.createElement("div");
-            section.className = "media-category";
-            section.innerHTML = `<h2>${categoryLabels[cat]}</h2>`;
+        function saveUserItems(items) {
+            localStorage.setItem('userItems', JSON.stringify(items));
+        }
 
-            items.forEach(item => {
-                const div = document.createElement("div");
-                div.className = "media-item";
-                div.innerHTML = `<h3>${item.title}</h3>${item.notes ? `<p>${item.notes}</p>` : ""}`;
-                section.appendChild(div);
+        function render() {
+            const userItems = getUserItems();
+            const container = document.getElementById("media-container");
+            container.innerHTML = "";
+
+            categories.forEach(cat => {
+                const baseItems = BASELINE.filter(m => m.type === cat);
+                const added = userItems.filter(m => m.type === cat);
+                const allItems = [...baseItems, ...added];
+                if (!allItems.length) return;
+
+                const section = document.createElement("div");
+                section.className = "media-category";
+                section.innerHTML = `<h2>${categoryLabels[cat]}</h2>`;
+
+                baseItems.forEach(item => {
+                    section.appendChild(makeItemEl(item, false, null));
+                });
+
+                added.forEach((item, idx) => {
+                    const globalIdx = userItems.findIndex(u => u === item);
+                    section.appendChild(makeItemEl(item, true, globalIdx));
+                });
+
+                container.appendChild(section);
             });
+        }
 
-            container.appendChild(section);
-        });
+        function makeItemEl(item, isUserAdded, deleteIdx) {
+            const div = document.createElement("div");
+            div.className = "media-item" + (isUserAdded ? " user-added" : "");
+            div.innerHTML = `
+                <div class="media-item-text">
+                    <h3>${item.title}</h3>
+                    ${item.notes ? `<p>${item.notes}</p>` : ""}
+                </div>
+                ${isUserAdded ? `<button class="delete-btn" onclick="deleteItem(${deleteIdx})">✕</button>` : ""}
+            `;
+            return div;
+        }
+
+        function addItem() {
+            const title = document.getElementById("input-title").value.trim();
+            const type = document.getElementById("input-type").value;
+            const notes = document.getElementById("input-notes").value.trim();
+            if (!title) { alert("Please enter a title."); return; }
+
+            const userItems = getUserItems();
+            userItems.push({ title, type, notes });
+            saveUserItems(userItems);
+
+            document.getElementById("input-title").value = "";
+            document.getElementById("input-notes").value = "";
+            render();
+        }
+
+        function deleteItem(idx) {
+            const userItems = getUserItems();
+            userItems.splice(idx, 1);
+            saveUserItems(userItems);
+            render();
+        }
+
+        render();
     </script>
 </body>
 </html>
