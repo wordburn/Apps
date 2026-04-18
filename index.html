@@ -14,7 +14,6 @@
             padding-bottom: 80px;
         }
 
-        /* Header */
         header {
             background: #1a1a1a;
             padding: 16px 20px 12px;
@@ -24,14 +23,7 @@
             top: 0;
             z-index: 100;
         }
-
-        .eyebrows {
-            font-size: 3rem;
-            line-height: 1;
-            display: block;
-            filter: grayscale(0.3);
-        }
-
+        .star-icon { display: block; margin: 0 auto 4px; width: 52px; height: 52px; }
         header h1 {
             font-size: 1.3rem;
             font-weight: 700;
@@ -40,7 +32,6 @@
             margin-top: 4px;
         }
 
-        /* Tabs */
         .tabs {
             display: flex;
             background: #1a1a1a;
@@ -56,10 +47,10 @@
 
         .tab {
             flex: 1;
-            min-width: 70px;
-            padding: 10px 6px;
+            min-width: 60px;
+            padding: 10px 4px;
             text-align: center;
-            font-size: 0.72rem;
+            font-size: 0.65rem;
             font-weight: 600;
             color: #888;
             cursor: pointer;
@@ -67,12 +58,8 @@
             white-space: nowrap;
             -webkit-tap-highlight-color: transparent;
         }
-        .tab.active {
-            color: #fff;
-            border-bottom-color: #e5c100;
-        }
+        .tab.active { color: #fff; border-bottom-color: #e5c100; }
 
-        /* Section */
         .section { display: none; padding: 0 16px; }
         .section.active { display: block; }
 
@@ -82,10 +69,7 @@
             align-items: center;
             padding: 16px 0 10px;
         }
-        .section-header h2 {
-            font-size: 1.1rem;
-            color: #fff;
-        }
+        .section-header h2 { font-size: 1.1rem; color: #fff; }
         .counter {
             font-size: 0.75rem;
             background: #2a2a2a;
@@ -95,19 +79,14 @@
         }
         .counter span { color: #e5c100; font-weight: 700; }
 
-        /* Media item */
         .media-item {
             background: #1c1c1e;
             border-radius: 12px;
             margin-bottom: 10px;
             padding: 14px;
             border: 1px solid #2a2a2a;
-            transition: border-color 0.2s;
         }
-        .media-item.done {
-            border-color: #2d4a2d;
-            background: #1a221a;
-        }
+        .media-item.done { border-color: #2d4a2d; background: #1a221a; }
 
         .item-top {
             display: flex;
@@ -115,7 +94,6 @@
             gap: 12px;
         }
 
-        /* Checkbox */
         .check-circle {
             width: 26px;
             height: 26px;
@@ -131,68 +109,42 @@
             -webkit-tap-highlight-color: transparent;
             margin-top: 1px;
         }
-        .check-circle.checked {
-            background: #3a7d3a;
-            border-color: #3a7d3a;
-        }
+        .check-circle.checked { background: #3a7d3a; border-color: #3a7d3a; }
 
         .item-info { flex: 1; min-width: 0; }
-        .item-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: #fff;
-            line-height: 1.3;
-        }
-        .media-item.done .item-title {
-            color: #888;
-            text-decoration: line-through;
-        }
-        .item-note {
-            font-size: 0.78rem;
-            color: #777;
-            margin-top: 3px;
-        }
+        .item-title { font-size: 0.95rem; font-weight: 600; color: #fff; line-height: 1.3; }
+        .media-item.done .item-title { color: #888; text-decoration: line-through; }
+        .item-note { font-size: 0.78rem; color: #777; margin-top: 3px; }
 
-        .item-badges {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            flex-shrink: 0;
-        }
+        .item-badges { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
 
-        /* Badge link */
         .badge-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            font-size: 0.6rem;
+            width: 30px;
+            height: 22px;
+            border-radius: 5px;
+            font-size: 0.55rem;
             font-weight: 800;
             text-decoration: none;
             letter-spacing: -0.02em;
         }
-        .badge-imdb {
-            background: #f5c518;
-            color: #000;
-        }
-        .badge-wiki {
-            background: #eee;
-            color: #000;
-        }
-        .badge-user {
-            background: #333;
-            color: #888;
-            font-size: 0.65rem;
-        }
+        .badge-imdb { background: #f5c518; color: #000; }
+        .badge-wiki { background: #eee; color: #000; }
 
-        /* Stars */
-        .stars-row {
-            display: flex;
-            gap: 4px;
-            margin-top: 10px;
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #555;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 2px 0 0 4px;
+            -webkit-tap-highlight-color: transparent;
         }
+        .delete-btn:active { color: #e55; }
+
+        .stars-row { display: flex; gap: 4px; margin-top: 10px; }
         .star {
             font-size: 1.3rem;
             cursor: pointer;
@@ -202,12 +154,7 @@
         }
         .star.lit { color: #e5c100; }
 
-        /* Review input */
-        .review-row {
-            margin-top: 8px;
-            display: flex;
-            gap: 8px;
-        }
+        .review-row { margin-top: 8px; display: flex; gap: 8px; }
         .review-input {
             flex: 1;
             background: #111;
@@ -232,7 +179,6 @@
             -webkit-tap-highlight-color: transparent;
         }
         .save-btn:active { background: #555; }
-
         .review-display {
             margin-top: 8px;
             font-size: 0.82rem;
@@ -241,7 +187,6 @@
             line-height: 1.4;
         }
 
-        /* Add form */
         .add-section {
             margin-top: 8px;
             background: #1c1c1e;
@@ -249,12 +194,8 @@
             padding: 16px;
             border: 1px solid #2a2a2a;
         }
-        .add-section h3 {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-bottom: 12px;
-        }
-        .add-section input, .add-section select, .add-section textarea {
+        .add-section h3 { font-size: 0.9rem; color: #aaa; margin-bottom: 12px; }
+        .add-section input, .add-section select {
             width: 100%;
             background: #111;
             border: 1px solid #333;
@@ -266,9 +207,7 @@
             margin-bottom: 8px;
             -webkit-appearance: none;
         }
-        .add-section input:focus,
-        .add-section select:focus { outline: none; border-color: #555; }
-        .add-section select { background-image: none; }
+        .add-section input:focus, .add-section select:focus { outline: none; border-color: #555; }
         .add-btn {
             width: 100%;
             padding: 12px;
@@ -282,23 +221,28 @@
             -webkit-tap-highlight-color: transparent;
         }
         .add-btn:active { background: #c9aa00; }
-
-        .delete-btn {
-            background: none;
-            border: none;
-            color: #555;
-            font-size: 0.8rem;
-            cursor: pointer;
-            padding: 4px 0 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .delete-btn:active { color: #e55; }
     </style>
 </head>
 <body>
 
 <header>
-    <span class="eyebrows">🦱</span>
+    <svg class="star-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="50" fill="#e8c4b8"/>
+    <rect x="18" y="22" width="3" height="2" rx="1" fill="#c9a090" opacity="0.7"/>
+    <rect x="70" y="15" width="2" height="3" rx="1" fill="#b08070" opacity="0.6"/>
+    <rect x="55" y="75" width="3" height="2" rx="1" fill="#c9a090" opacity="0.5"/>
+    <rect x="25" y="68" width="2" height="3" rx="1" fill="#b08070" opacity="0.6"/>
+    <rect x="80" y="60" width="3" height="2" rx="1" fill="#c9a090" opacity="0.5"/>
+    <rect x="40" y="12" width="2" height="2" rx="1" fill="#b08070" opacity="0.4"/>
+    <defs>
+        <linearGradient id="starshine" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#fff"/>
+            <stop offset="50%" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+    </defs>
+    <polygon points="50,14 56,34 78,34 61,47 67,67 50,55 33,67 39,47 22,34 44,34" fill="#d4a017" stroke="#b8860b" stroke-width="1"/>
+    <polygon points="50,14 56,34 78,34 61,47 67,67 50,55 33,67 39,47 22,34 44,34" fill="url(#starshine)" opacity="0.4"/>
+</svg>
     <h1>THE LIST</h1>
 </header>
 
@@ -306,91 +250,136 @@
 <div id="sections"></div>
 
 <script>
-const BASELINE = [
-    { title: "The Brutalist", type: "Film/TV", note: "Recent addition" },
-    { title: "Anora", type: "Film/TV", note: "Recent addition" },
-    { title: "The Patient", type: "Film/TV", note: "Recommended thriller" },
-    { title: "Severance", type: "Film/TV", note: "Season 1/2" },
-    { title: "The Boy and the Heron", type: "Film/TV", note: "Studio Ghibli" },
-    { title: "The Creator", type: "Film/TV", note: "Sci-fi" },
-    { title: "Reservoir Dogs", type: "Film/TV", note: "Classic" },
-    { title: "Poor Things", type: "Film/TV", note: "" },
-    { title: "The Power Broker", type: "Book", note: "Robert Caro" },
-    { title: "The Maniac", type: "Book", note: "Benjamin Labatut" },
-    { title: "Hyperion", type: "Book", note: "Dan Simmons" },
-    { title: "Blood Meridian", type: "Book", note: "Cormac McCarthy" },
-    { title: "Consider Phlebas", type: "Book", note: "Iain M. Banks" },
-    { title: "The Wager", type: "Book", note: "David Grann" },
-    { title: "Baldur's Gate 3", type: "Game", note: "Current playthrough" },
-    { title: "Disco Elysium", type: "Game", note: "RPG" },
-    { title: "Death Stranding 2", type: "Game", note: "Upcoming" },
-    { title: "MGS Delta: Snake Eater", type: "Game", note: "Remake" },
-    { title: "Assassin's Creed Mirage", type: "Game", note: "" },
-    { title: "One Man's Trash", type: "Podcast", note: "Chris Gethard episodes" },
-    { title: "Bad Actor", type: "Podcast", note: "Hollywood Ponzi scheme" },
-    { title: "The Joe Rogan Experience", type: "Podcast", note: "" },
-    { title: "Last Podcast On The Left", type: "Podcast", note: "" },
-];
+const BASELINE = {
+    "TV": [
+        "The Patient","Black Doves","Underground Railroad","Sandman","Pachinko",
+        "Hemingway","Holocaust","Devs","Kids in the Hall","Mare of Easttown",
+        "Sharp Objects","The Night Of","Only Murders in the Building","Twin Peaks",
+        "Good Nurse","Get Back","Coherence","Adolescence","The Studio","Industry",
+        "Severance","White Lotus","Rogue Heroes","Sweet Home","Beef","Swarm",
+        "Command Z","Other Side of the Tracks","Fauda","Dead Reckoning","The Curse",
+        "Evil","Attack on Titan","The Agency","The Ehronaut","30 for 30 Eddie Aikau",
+        "Kindred","Buckley Doc - It's Never Over","The Lowdown","Reservoir Dogs",
+        "The Gold 2"
+    ],
+    "Movies": [
+        "Threads","Little Women","12 Years a Slave","Anthony Edwards Movie",
+        "Everything Everywhere All at Once","Before Sunset Series","Wong Kar Wai Series",
+        "The Mission","Mutiny","Pig","Banshees of Inisherin","Air","Putney Swope",
+        "Blazing Saddles","Black Enough for You","The Survivor","Soderbergh List",
+        "Living","Meet Me in the Bathroom","Isbell Doc","Moonage Daydream",
+        "Emma (Mixed Movie)","Past Lives","The Creator","The Killer","Killers of the Flower Moon",
+        "The Boy and the Heron","American Fiction","Poor Things","Zone of Interest",
+        "CV","Being There","Past Lives","Paprika","Paris Blues","Past Lives","F1",
+        "Worst Person in the World","Ghost World","Highest to Lowest","Burning",
+        "Brutalist","Memories of Murder","Preston Sturges","Intolerable Cruelty",
+        "Sorry Baby","Die My Love","The Hot Rock","Downhill Racer","Secret Agent",
+        "Cloud","Jay Kelly","It Was Just an Accident","Hamnet","No Other Choice",
+        "Sentimental Value","Oppenheimer","Anora","The Brutalist","After Hours",
+        "Pandorum","Paris Blues"
+    ],
+    "Books": [
+        "The Many Worlds of Alastair Reynolds","Deaths of Despair and the Future of Capitalism",
+        "What We Owe Each Other","The Denial of Death","Great Balls of Fire","Saga",
+        "The Art of Gathering","Adrian Newey - How to Build a Car",
+        "Invisible Life of Addie LaRue","Project Hail Mary","The Martian",
+        "The Egg (Weir)","Lincoln's Bardo","Culture (Iain Banks)","The Wasp Factory",
+        "Bowling Alone","Will Smith","Greenlights","Hwang PLO Book",
+        "Richard Ayoade - View from the Spire","The Sympathizer","Off Earth",
+        "Obstacle is the Way","Last Action Heroes","Robinson's Mars Trilogy",
+        "Warren Zevon Nebraska Book","Naomi Klein - All","On Beauty",
+        "Sarah Wachter-Boettcher - Technically Wrong","Factfulness",
+        "W.E.B. Du Bois - The Comet","Blue Note Book (Dad)","Mess - The Replacements",
+        "Don't Think of an Elephant","The Body Keeps the Score","Guns of August",
+        "Paris 1919","Possession","On Writing","The Coded Gaze","The Maniac",
+        "The Power Broker","House of Leaves","Jack Burnham - Tech","Zero Fail",
+        "Jordan Harper - Everybody Knows","Hyperion Cantos","Nickel Boys",
+        "Energy and Civilization","Orbital","Every Good Boy Does Fine",
+        "Lumet Book - On Movies","Lush Life","Shadow Ticket","Fever in the Heartland",
+        "The Zong (Slave Ship)","Modotti Art Book","Helen DeWitt - The Last Samurai",
+        "Jim Thompson","Tufte","The Studio (Dunne)","A Fire Upon the Deep",
+        "Oliver Harris Spy Series","Blood Meridian","Consider Phlebas","The Wager",
+        "Hyperion"
+    ],
+    "Podcasts": [
+        "One Man's Trash","Bad Actor","The Joe Rogan Experience","Last Podcast on the Left"
+    ],
+    "YouTube": [
+        "Hamilton's Pharmacopeia","Fat Tony"
+    ],
+    "Other": [
+        "Civil Rights Museum","Costa Rica","Scuba","Homicide Box Set",
+        "Hannibal Box Set","The Prisoner Box Set with Map","Hans Haacke"
+    ],
+    "Games": [
+        "Mare","Behemoth","Assassin's Creed Shadows","Disco Elysium",
+        "KC2","Baldur's Gate 3","Death Stranding 2","Doom Medieval",
+        "Claire 33","MGS Delta: Snake Eater"
+    ]
+};
 
-const CATEGORIES = ["Film/TV", "Book", "Game", "Podcast"];
-const LABELS = { "Film/TV": "🎬 Film & TV", "Book": "📚 Books", "Game": "🎮 Games", "Podcast": "🎙 Podcasts" };
+const CATEGORIES = ["TV","Movies","Books","Podcasts","YouTube","Other","Games"];
+const LABELS = {
+    "TV": "📺 TV",
+    "Movies": "🎬 Movies",
+    "Books": "📚 Books",
+    "Podcasts": "🎙 Podcasts",
+    "YouTube": "▶️ YouTube",
+    "Other": "🗺 Other",
+    "Games": "🎮 Games"
+};
 
 function loadState() {
-    try { return JSON.parse(localStorage.getItem('theListState')) || {}; } catch { return {}; }
+    try { return JSON.parse(localStorage.getItem('theListState_v2')) || {}; } catch { return {}; }
 }
-function saveState(state) {
-    localStorage.setItem('theListState', JSON.stringify(state));
-}
+function saveState(s) { localStorage.setItem('theListState_v2', JSON.stringify(s)); }
 function loadUserItems() {
-    try { return JSON.parse(localStorage.getItem('theListUserItems')) || []; } catch { return []; }
+    try { return JSON.parse(localStorage.getItem('theListUserItems_v2')) || []; } catch { return []; }
 }
-function saveUserItems(items) {
-    localStorage.setItem('theListUserItems', JSON.stringify(items));
-}
+function saveUserItems(items) { localStorage.setItem('theListUserItems_v2', JSON.stringify(items)); }
 
 let state = loadState();
 let userItems = loadUserItems();
 let activeTab = CATEGORIES[0];
 
-function getItemKey(item) {
-    return (item.source === 'user' ? 'u:' : 'b:') + item.type + ':' + item.title;
+function getKey(source, type, title) {
+    return (source === 'user' ? 'u:' : 'b:') + type + ':' + title;
 }
 
-function allItemsForCategory(cat) {
-    const base = BASELINE.filter(m => m.type === cat).map(m => ({ ...m, source: 'baseline' }));
+function allItems(cat) {
+    const base = (BASELINE[cat] || []).map(t => ({ title: t, type: cat, note: '', source: 'baseline' }));
     const user = userItems.filter(m => m.type === cat).map(m => ({ ...m, source: 'user' }));
     return [...base, ...user].sort((a, b) => a.title.localeCompare(b.title));
 }
 
 function badgeHTML(item) {
     const q = encodeURIComponent(item.title);
-    if (item.type === 'Film/TV') {
+    if (item.type === 'Movies' || item.type === 'TV') {
         return `<a class="badge-link badge-imdb" href="https://www.imdb.com/find?q=${q}" target="_blank">IMDb</a>`;
     }
-    if (item.type === 'Book') {
+    if (item.type === 'Books') {
         return `<a class="badge-link badge-wiki" href="https://en.wikipedia.org/w/index.php?search=${q}" target="_blank">Wiki</a>`;
     }
     return '';
 }
 
 function renderStars(key, rating) {
+    const k = key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     return [1,2,3,4,5].map(n =>
-        `<span class="star ${rating >= n ? 'lit' : ''}" onclick="setRating('${key}',${n})">★</span>`
+        `<span class="star ${rating >= n ? 'lit' : ''}" onclick="setRating('${k}',${n})">★</span>`
     ).join('');
 }
 
 function renderItem(item) {
-    const key = getItemKey(item);
+    const key = getKey(item.source, item.type, item.title);
     const s = state[key] || {};
     const done = !!s.done;
     const rating = s.rating || 0;
     const review = s.review || '';
-
-    const isUser = item.source === 'user';
-    const safeKey = key.replace(/'/g, "\\'");
+    const safeKey = key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
 
     return `
-    <div class="media-item ${done ? 'done' : ''}" id="item-${CSS.escape(key)}">
+    <div class="media-item ${done ? 'done' : ''}">
         <div class="item-top">
             <div class="check-circle ${done ? 'checked' : ''}" onclick="toggleDone('${safeKey}')">
                 ${done ? '✓' : ''}
@@ -401,13 +390,13 @@ function renderItem(item) {
             </div>
             <div class="item-badges">
                 ${badgeHTML(item)}
-                ${isUser ? `<button class="delete-btn" onclick="deleteUserItem('${safeKey}')">✕</button>` : ''}
+                ${item.source === 'user' ? `<button class="delete-btn" onclick="deleteUserItem('${safeKey}')">✕</button>` : ''}
             </div>
         </div>
         ${done ? `
         <div class="stars-row">${renderStars(safeKey, rating)}</div>
         <div class="review-row">
-            <textarea class="review-input" id="review-${CSS.escape(key)}" placeholder="Add a review…" rows="1">${review}</textarea>
+            <textarea class="review-input" id="rv-${CSS.escape(key)}" placeholder="Add a review…" rows="1">${review}</textarea>
             <button class="save-btn" onclick="saveReview('${safeKey}')">Save</button>
         </div>
         ${review ? `<div class="review-display">"${review}"</div>` : ''}
@@ -416,31 +405,30 @@ function renderItem(item) {
 }
 
 function renderSection(cat) {
-    const items = allItemsForCategory(cat);
-    const done = items.filter(i => state[getItemKey(i)]?.done).length;
-    const total = items.length;
+    const items = allItems(cat);
+    const done = items.filter(i => (state[getKey(i.source, i.type, i.title)] || {}).done).length;
+    const catId = cat.replace(/[^a-z0-9]/gi,'_');
 
     return `
-    <div class="section ${cat === activeTab ? 'active' : ''}" id="section-${cat.replace('/','_')}">
+    <div class="section ${cat === activeTab ? 'active' : ''}" id="sec-${catId}">
         <div class="section-header">
             <h2>${LABELS[cat]}</h2>
-            <div class="counter"><span>${done}</span> / ${total} done</div>
+            <div class="counter"><span>${done}</span> / ${items.length} done</div>
         </div>
         ${items.map(renderItem).join('')}
         <div class="add-section">
             <h3>+ Add to ${LABELS[cat]}</h3>
-            <input type="text" id="add-title-${cat.replace('/','_')}" placeholder="Title" />
-            <input type="text" id="add-note-${cat.replace('/','_')}" placeholder="Notes (optional)" />
+            <input type="text" id="add-title-${catId}" placeholder="Title" />
+            <input type="text" id="add-note-${catId}" placeholder="Notes (optional)" />
             <button class="add-btn" onclick="addItem('${cat}')">Add</button>
         </div>
     </div>`;
 }
 
 function renderTabs() {
-    const tabsEl = document.getElementById('tabs');
-    tabsEl.innerHTML = CATEGORIES.map(cat => {
-        const items = allItemsForCategory(cat);
-        const done = items.filter(i => state[getItemKey(i)]?.done).length;
+    document.getElementById('tabs').innerHTML = CATEGORIES.map(cat => {
+        const items = allItems(cat);
+        const done = items.filter(i => (state[getKey(i.source, i.type, i.title)] || {}).done).length;
         return `<div class="tab ${cat === activeTab ? 'active' : ''}" onclick="switchTab('${cat}')">
             ${LABELS[cat]}<br><small style="font-weight:400;color:#666">${done}/${items.length}</small>
         </div>`;
@@ -473,7 +461,7 @@ function setRating(key, n) {
 }
 
 function saveReview(key) {
-    const el = document.getElementById('review-' + CSS.escape(key));
+    const el = document.getElementById('rv-' + CSS.escape(key));
     if (!el) return;
     state[key] = state[key] || {};
     state[key].review = el.value.trim();
@@ -482,7 +470,7 @@ function saveReview(key) {
 }
 
 function addItem(cat) {
-    const catId = cat.replace('/','_');
+    const catId = cat.replace(/[^a-z0-9]/gi,'_');
     const titleEl = document.getElementById('add-title-' + catId);
     const noteEl = document.getElementById('add-note-' + catId);
     const title = titleEl.value.trim();
@@ -493,9 +481,10 @@ function addItem(cat) {
 }
 
 function deleteUserItem(key) {
-    const parts = key.replace(/^u:/, '').split(':');
-    const type = parts[0];
-    const title = parts.slice(1).join(':');
+    const withoutPrefix = key.replace(/^u:/, '');
+    const colonIdx = withoutPrefix.indexOf(':');
+    const type = withoutPrefix.substring(0, colonIdx);
+    const title = withoutPrefix.substring(colonIdx + 1);
     userItems = userItems.filter(i => !(i.type === type && i.title === title));
     saveUserItems(userItems);
     delete state[key];
