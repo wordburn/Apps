@@ -8,17 +8,10 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --cream:#f5f0e8;
-  --black:#1a1a18;
-  --red:#c41e1e;
-  --gray:#888880;
-  --lt-gray:#e8e4dc;
-  --text:#2a2a26;
-  --serif:'EB Garamond',Georgia,serif;
-  --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --cream:#f5f0e8;--black:#1a1a18;--red:#c41e1e;--gray:#888880;--lt-gray:#e8e4dc;--text:#2a2a26;
+  --serif:'EB Garamond',Georgia,serif;--sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 body{background:var(--cream);color:var(--text);font-family:var(--sans);font-weight:300;min-height:100vh;padding-bottom:80px}
-
 header{background:var(--black);padding:0;border-bottom:3px solid var(--red)}
 .header-inner{display:flex;align-items:stretch;max-width:1100px;margin:0 auto}
 .header-logo{padding:14px 20px;border-right:1px solid #333;display:flex;align-items:center;gap:10px}
@@ -26,10 +19,9 @@ header{background:var(--black);padding:0;border-bottom:3px solid var(--red)}
 .logo-mark svg{width:18px;height:18px}
 .header-title{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:#fff;letter-spacing:0.04em}
 .header-subtitle{font-family:var(--sans);font-size:0.55rem;font-weight:400;color:#888;letter-spacing:0.2em;text-transform:uppercase;margin-top:1px}
-.header-right{flex:1;display:flex;align-items:center;justify-content:flex-end;padding:0 20px;gap:16px}
+.header-right{flex:1;display:flex;align-items:center;justify-content:flex-end;padding:0 20px}
 .total-pill{font-size:0.65rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:#888;font-family:var(--sans)}
 .total-pill strong{color:var(--red)}
-
 nav{background:var(--black);border-bottom:1px solid #222;position:sticky;top:0;z-index:100;overflow-x:auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
 .nav-inner{display:flex;max-width:1100px;margin:0 auto}
@@ -38,48 +30,35 @@ nav::-webkit-scrollbar{display:none}
 .tab.active{color:#fff;border-bottom-color:var(--red)}
 .tab-count{margin-left:4px;color:#444;font-size:0.55rem}
 .tab.active .tab-count{color:#c41e1e80}
-
 main{max-width:1100px;margin:0 auto;padding:0 16px}
-
-.section{display:none}
-.section.active{display:block}
-
+.section{display:none}.section.active{display:block}
 .section-head{padding:32px 0 20px;border-bottom:1px solid var(--black);margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-end}
 .section-head h2{font-family:var(--serif);font-size:2rem;font-weight:400;color:var(--black);letter-spacing:0.01em;font-style:italic}
 .section-meta{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);font-family:var(--sans)}
 .section-meta strong{color:var(--red)}
-
 .genre-group{margin-bottom:36px}
 .genre-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray);font-family:var(--sans);font-weight:400;padding:0 0 10px;border-bottom:0.5px solid var(--lt-gray);margin-bottom:0}
-
 .items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0;border-left:0.5px solid var(--lt-gray)}
-
 .media-card{border-right:0.5px solid var(--lt-gray);border-bottom:0.5px solid var(--lt-gray);padding:0;position:relative;transition:background 0.15s;cursor:default}
 .media-card:hover{background:#eee9df}
 .media-card.done{background:#f0ede6}
 .media-card.done:hover{background:#ebe7de}
-
-.card-thumb{width:100%;aspect-ratio:2/3;background:var(--lt-gray);overflow:hidden;position:relative;border-bottom:0.5px solid var(--lt-gray)}
-.card-thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity 0.3s}
-.card-thumb img.loaded{opacity:1}
-.thumb-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:2.5rem;color:#333;background:var(--black);font-style:italic}
+.card-thumb{width:100%;aspect-ratio:2/3;overflow:hidden;position:relative;border-bottom:0.5px solid var(--lt-gray)}
+.card-thumb canvas{width:100%;height:100%;display:block}
 .done-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s}
 .media-card.done .done-overlay{opacity:1}
 .done-check{width:40px;height:40px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem}
-
 .card-body{padding:12px 12px 10px}
 .card-number{font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);font-family:var(--sans);margin-bottom:4px}
 .card-title{font-family:var(--serif);font-size:0.95rem;font-weight:400;line-height:1.3;color:var(--black);margin-bottom:6px}
 .media-card.done .card-title{color:var(--gray);text-decoration:line-through;text-decoration-color:var(--red)}
 .card-meta{font-size:0.6rem;color:var(--gray);font-family:var(--sans);font-weight:300;line-height:1.6;margin-bottom:8px}
 .card-meta span{display:block}
-
 .card-links{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
 .badge{display:inline-flex;align-items:center;padding:2px 7px;font-size:0.5rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:400;text-decoration:none;font-family:var(--sans);transition:opacity 0.15s;border:0.5px solid}
 .badge:hover{opacity:0.7}
 .badge-imdb{background:var(--black);color:#f5c518;border-color:var(--black)}
 .badge-wiki{background:transparent;color:var(--text);border-color:var(--gray)}
-
 .card-actions{display:flex;align-items:center;gap:6px;padding:0 12px 12px;justify-content:space-between}
 .check-btn{width:22px;height:22px;border-radius:50%;border:1px solid var(--gray);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.65rem;color:transparent;transition:all 0.15s;flex-shrink:0}
 .check-btn.checked{background:var(--red);border-color:var(--red);color:#fff}
@@ -88,7 +67,6 @@ main{max-width:1100px;margin:0 auto;padding:0 16px}
 .star.lit{color:var(--red)}
 .del-btn{background:none;border:none;color:var(--lt-gray);font-size:0.8rem;cursor:pointer;padding:0;line-height:1}
 .del-btn:hover{color:var(--red)}
-
 .review-area{padding:0 12px 12px;border-top:0.5px solid var(--lt-gray);display:none}
 .media-card.done .review-area{display:block;padding-top:10px}
 .review-input{width:100%;background:transparent;border:none;border-bottom:0.5px solid var(--lt-gray);color:var(--text);font-size:0.75rem;font-family:var(--serif);font-style:italic;padding:4px 0;margin-bottom:6px;resize:none;min-height:28px}
@@ -96,8 +74,7 @@ main{max-width:1100px;margin:0 auto;padding:0 16px}
 .review-display{font-size:0.75rem;font-family:var(--serif);font-style:italic;color:var(--gray);line-height:1.5}
 .save-btn{font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;font-family:var(--sans);background:none;border:0.5px solid var(--gray);color:var(--gray);padding:3px 8px;cursor:pointer;transition:all 0.15s}
 .save-btn:hover{background:var(--black);color:#fff;border-color:var(--black)}
-
-.add-panel{background:var(--black);padding:24px;margin:28px 0;border-left:3px solid var(--red)}
+.add-panel{background:var(--black);padding:24px;margin:0 0 28px 0;border-left:3px solid var(--red)}
 .add-panel h3{font-family:var(--serif);font-size:0.8rem;font-weight:400;color:#888;letter-spacing:0.1em;font-style:italic;margin-bottom:14px}
 .add-fields{display:flex;gap:8px;flex-wrap:wrap}
 .add-fields input,.add-fields select{background:transparent;border:none;border-bottom:1px solid #444;color:#ccc;font-size:0.8rem;font-family:var(--sans);font-weight:300;padding:6px 0;flex:1;min-width:120px}
@@ -106,7 +83,7 @@ main{max-width:1100px;margin:0 auto;padding:0 16px}
 .add-fields select option{background:var(--black)}
 .add-submit{background:var(--red);color:#fff;border:none;padding:8px 18px;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;font-family:var(--sans);cursor:pointer;transition:background 0.15s;align-self:flex-end}
 .add-submit:hover{background:#a01818}
-
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;display:none}
 @media(max-width:600px){
   .items-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
   .header-title{font-size:1.2rem}
@@ -115,14 +92,12 @@ main{max-width:1100px;margin:0 auto;padding:0 16px}
 </style>
 </head>
 <body>
-
+<canvas id="confetti-canvas"></canvas>
 <header>
   <div class="header-inner">
     <div class="header-logo">
       <div class="logo-mark">
-        <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="9,1 11.5,6.5 17.5,7 13,11 14.5,17 9,14 3.5,17 5,11 0.5,7 6.5,6.5" fill="#c41e1e"/>
-        </svg>
+        <svg viewBox="0 0 18 18" fill="none"><polygon points="9,1 11.5,6.5 17.5,7 13,11 14.5,17 9,14 3.5,17 5,11 0.5,7 6.5,6.5" fill="#c41e1e"/></svg>
       </div>
       <div>
         <div class="header-title">The List</div>
@@ -134,116 +109,188 @@ main{max-width:1100px;margin:0 auto;padding:0 16px}
     </div>
   </div>
 </header>
-
-<nav>
-  <div class="nav-inner" id="tabs"></div>
-</nav>
-
+<nav><div class="nav-inner" id="tabs"></div></nav>
 <main id="main"></main>
-
 <script>
-const GENRES = {
-  TV: {
-    "Drama": ["The Patient","Black Doves","Underground Railroad","Sandman","Pachinko","Mare of Easttown","Sharp Objects","The Night Of","Twin Peaks","Kindred","Industry","Severance","White Lotus","Beef","Swarm","The Curse","Evil","The Agency","Fauda","Dead Reckoning","Adolescence","The Lowdown"],
-    "Documentary": ["Hemingway","Holocaust","Get Back","30 for 30 Eddie Aikau","Buckley Doc - It's Never Over","Reservoir Dogs"],
-    "Comedy": ["Kids in the Hall","Only Murders in the Building","The Studio","Command Z","Other Side of the Tracks","The Gold 2"],
-    "Sci-Fi / Fantasy": ["Devs","Attack on Titan","Rogue Heroes","Sweet Home","The Ehronaut"],
-    "Limited Series": ["Good Nurse","Coherence"]
+const GENRES={
+  TV:{
+    "Drama":["The Patient","Black Doves","Underground Railroad","Sandman","Pachinko","Mare of Easttown","Sharp Objects","The Night Of","Twin Peaks","Kindred","Industry","Severance","White Lotus","Beef","Swarm","The Curse","Evil","The Agency","Fauda","Dead Reckoning","Adolescence","The Lowdown"],
+    "Documentary":["Hemingway","Holocaust","Get Back","30 for 30 Eddie Aikau","Buckley Doc - It's Never Over"],
+    "Comedy":["Kids in the Hall","Only Murders in the Building","The Studio","Command Z","Other Side of the Tracks","The Gold 2"],
+    "Sci-Fi / Fantasy":["Devs","Attack on Titan","Rogue Heroes","Sweet Home","The Ehronaut"],
+    "Limited Series":["Good Nurse","Coherence"]
   },
-  Movies: {
-    "Drama": ["Threads","Little Women","12 Years a Slave","The Mission","Pig","Banshees of Inisherin","The Survivor","Living","Past Lives","American Fiction","Poor Things","Zone of Interest","Being There","Worst Person in the World","Ghost World","Burning","Brutalist","Memories of Murder","Sorry Baby","Die My Love","Downhill Racer","Cloud","Hamnet","No Other Choice","Sentimental Value","Oppenheimer","Anora","The Brutalist","After Hours","Paris Blues"],
-    "Comedy": ["Putney Swope","Blazing Saddles","Intolerable Cruelty","The Hot Rock","Air"],
-    "Thriller / Crime": ["The Killer","Secret Agent"],
-    "Sci-Fi / Animation": ["Everything Everywhere All at Once","The Creator","The Boy and the Heron","Paprika","Pandorum"],
-    "Documentary": ["Black Enough for You","Meet Me in the Bathroom","Isbell Doc","Moonage Daydream","CV"],
-    "Series / Collections": ["Before Sunset Series","Wong Kar Wai Series","Soderbergh List","Emma (Mixed Movie)","Preston Sturges","Killers of the Flower Moon","Highest to Lowest","F1","Jay Kelly","It Was Just an Accident","Anthony Edwards Movie","Mutiny"]
+  Movies:{
+    "Drama":["Threads","Little Women","12 Years a Slave","The Mission","Pig","Banshees of Inisherin","The Survivor","Living","Past Lives","American Fiction","Poor Things","Zone of Interest","Being There","Worst Person in the World","Ghost World","Burning","The Brutalist","Memories of Murder","Sorry Baby","Die My Love","Downhill Racer","Cloud","Hamnet","No Other Choice","Sentimental Value","Oppenheimer","Anora","After Hours","Paris Blues"],
+    "Comedy":["Putney Swope","Blazing Saddles","Intolerable Cruelty","The Hot Rock","Air"],
+    "Thriller / Crime":["The Killer","Secret Agent","Reservoir Dogs"],
+    "Sci-Fi / Animation":["Everything Everywhere All at Once","The Creator","The Boy and the Heron","Paprika","Pandorum"],
+    "Documentary":["Black Enough for You","Meet Me in the Bathroom","Isbell Doc","Moonage Daydream","CV"],
+    "Series / Collections":["Before Sunset Series","Wong Kar Wai Series","Soderbergh List","Emma (Mixed Movie)","Preston Sturges","Killers of the Flower Moon","Highest to Lowest","F1","Jay Kelly","It Was Just an Accident","Anthony Edwards Movie","Mutiny"]
   },
-  Books: {
-    "Science Fiction": ["The Many Worlds of Alastair Reynolds","Culture (Iain Banks)","Project Hail Mary","The Martian","Robinson's Mars Trilogy","Hyperion Cantos","A Fire Upon the Deep","Consider Phlebas","Hyperion","Saga"],
-    "Non-Fiction": ["Deaths of Despair and the Future of Capitalism","What We Owe Each Other","The Denial of Death","The Art of Gathering","Adrian Newey - How to Build a Car","Bowling Alone","Factfulness","Last Action Heroes","Energy and Civilization","Guns of August","Paris 1919","Zero Fail","Jack Burnham - Tech","The Power Broker","Tufte","The Studio (Dunne)","The Coded Gaze","Every Good Boy Does Fine","Lumet Book - On Movies","Shadow Ticket","Fever in the Heartland","The Zong (Slave Ship)","Modotti Art Book"],
-    "Fiction": ["Invisible Life of Addie LaRue","Lincoln's Bardo","The Wasp Factory","The Sympathizer","On Beauty","Possession","The Maniac","House of Leaves","Blood Meridian","Nickel Boys","Orbital","Lush Life","Helen DeWitt - The Last Samurai","Jim Thompson","Hwang PLO Book","W.E.B. Du Bois - The Comet"],
-    "Memoir / Biography": ["Will Smith","Greenlights","Richard Ayoade - View from the Spire","Off Earth","Warren Zevon Nebraska Book","Mess - The Replacements","Blue Note Book (Dad)","The Egg (Weir)"],
-    "Self-Help / Psychology": ["Obstacle is the Way","The Body Keeps the Score","Don't Think of an Elephant","Sarah Wachter-Boettcher - Technically Wrong","Jordan Harper - Everybody Knows"]
+  Books:{
+    "Science Fiction":["The Many Worlds of Alastair Reynolds","Culture (Iain Banks)","Project Hail Mary","The Martian","Robinson's Mars Trilogy","Hyperion Cantos","A Fire Upon the Deep","Consider Phlebas","Hyperion","Saga"],
+    "Non-Fiction":["Deaths of Despair and the Future of Capitalism","What We Owe Each Other","The Denial of Death","The Art of Gathering","Adrian Newey - How to Build a Car","Bowling Alone","Factfulness","Last Action Heroes","Energy and Civilization","Guns of August","Paris 1919","Zero Fail","Jack Burnham - Tech","The Power Broker","Tufte","The Studio (Dunne)","The Coded Gaze","Every Good Boy Does Fine","Lumet Book - On Movies","Shadow Ticket","Fever in the Heartland","The Zong (Slave Ship)","Modotti Art Book"],
+    "Fiction":["Invisible Life of Addie LaRue","Lincoln's Bardo","The Wasp Factory","The Sympathizer","On Beauty","Possession","The Maniac","House of Leaves","Blood Meridian","Nickel Boys","Orbital","Lush Life","Helen DeWitt - The Last Samurai","Jim Thompson","Hwang PLO Book","W.E.B. Du Bois - The Comet"],
+    "Memoir / Biography":["Will Smith","Greenlights","Richard Ayoade - View from the Spire","Off Earth","Warren Zevon Nebraska Book","Mess - The Replacements","Blue Note Book (Dad)","The Egg (Weir)"],
+    "Self-Help / Psychology":["Obstacle is the Way","The Body Keeps the Score","Don't Think of an Elephant","Sarah Wachter-Boettcher - Technically Wrong","Jordan Harper - Everybody Knows"]
   },
-  Podcasts: {
-    "True Crime / Dark": ["Last Podcast on the Left"],
-    "Arts & Culture": ["One Man's Trash","Bad Actor"],
-    "Talk / Interview": ["The Joe Rogan Experience"]
+  Podcasts:{
+    "True Crime / Dark":["Last Podcast on the Left"],
+    "Arts & Culture":["One Man's Trash","Bad Actor"],
+    "Talk / Interview":["The Joe Rogan Experience"]
   },
-  YouTube: {
-    "Documentary": ["Hamilton's Pharmacopeia"],
-    "Music / Culture": ["Fat Tony"]
+  YouTube:{
+    "Documentary":["Hamilton's Pharmacopeia"],
+    "Music / Culture":["Fat Tony"]
   },
-  Other: {
-    "Travel": ["Costa Rica","Scuba"],
-    "Museums / Exhibitions": ["Civil Rights Museum","Hans Haacke"],
-    "Media Sets": ["Homicide Box Set","Hannibal Box Set","The Prisoner Box Set with Map"]
+  Other:{
+    "Travel":["Costa Rica","Scuba"],
+    "Museums / Exhibitions":["Civil Rights Museum","Hans Haacke"],
+    "Media Sets":["Homicide Box Set","Hannibal Box Set","The Prisoner Box Set with Map"]
   },
-  Games: {
-    "Action / Adventure": ["Assassin's Creed Shadows","Death Stranding 2","Doom Medieval","MGS Delta: Snake Eater","Behemoth"],
-    "RPG": ["Disco Elysium","Baldur's Gate 3","KC2"],
-    "Indie / Other": ["Mare","Claire 33"]
+  Games:{
+    "Action / Adventure":["Assassin's Creed Shadows","Death Stranding 2","Doom Medieval","MGS Delta: Snake Eater","Behemoth"],
+    "RPG":["Disco Elysium","Baldur's Gate 3","KC2"],
+    "Indie / Other":["Mare","Claire 33"]
   }
 };
 
-const META = {
-  // TV
-  "Severance":{imdb:"tt11280740",wiki:"Severance_(TV_series)",meta:"2022 · Sci-Fi Drama · 2 seasons · 19 eps",thumb:"https://m.media-amazon.com/images/M/MV5BMjkwOTQ0ODItZTdkMS00OWY4LTg4ZWUtNjRmMGI1ZGFiZWYxXkEyXkFqcGdeQXVyMTEyMjM2NDc2._V1_SX300.jpg"},
-  "White Lotus":{imdb:"tt13406094",wiki:"The_White_Lotus",meta:"2021 · Drama · 3 seasons · 22 eps",thumb:"https://m.media-amazon.com/images/M/MV5BYjhhZTRkMGItODI4YS00YTgwLWIzNmMtYWEwOGRhNzgzNzdlXkEyXkFqcGdeQXVyMTYzMDM0NTU@._V1_SX300.jpg"},
-  "Adolescence":{imdb:"tt31316756",wiki:"Adolescence_(TV_series)",meta:"2025 · Crime Drama · 1 season · 4 eps",thumb:"https://m.media-amazon.com/images/M/MV5BNmY5ZTUzNzQtNDdmNS00NzExLWEyZDEtNzYxZWM4OGY0OGQyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Beef":{imdb:"tt14079952",wiki:"Beef_(TV_series)",meta:"2023 · Dark Comedy · 1 season · 10 eps",thumb:"https://m.media-amazon.com/images/M/MV5BMzhhMDg1MDEtZDlhMy00OGNmLThlNzktOTYxMjA2OTZiMzZkXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Industry":{imdb:"tt10550912",wiki:"Industry_(TV_series)",meta:"2020 · Drama · 3 seasons · 24 eps",thumb:"https://m.media-amazon.com/images/M/MV5BN2I2MzBiNjQtMzg1Ni00OWUwLWE5NjgtZTY2MDkxNDkzM2U2XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "The Patient":{imdb:"tt15158642",wiki:"The_Patient_(TV_series)",meta:"2022 · Thriller · 1 season · 10 eps",thumb:"https://m.media-amazon.com/images/M/MV5BYTA2OTQ2MGUtYzYxOC00ZjgxLWI2MzctNmIzMzVlNjcwNjI5XkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_SX300.jpg"},
-  "Twin Peaks":{imdb:"tt0098936",wiki:"Twin_Peaks",meta:"1990 · Mystery · 3 seasons · 48 eps",thumb:"https://m.media-amazon.com/images/M/MV5BMjI4NzkyNjktN2M0OS00YzZhLWI0NGMtNTgxYzU1OGM1ZWJhXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg"},
-  "The Night Of":{imdb:"tt2401256",wiki:"The_Night_Of",meta:"2016 · Crime Drama · 1 season · 8 eps",thumb:"https://m.media-amazon.com/images/M/MV5BODZjNjZkNjUtNmJmNy00ZTlhLTk3MDAtOThhN2QzMzJkOTcyXkEyXkFqcGdeQXVyNjM2MjIzMzU@._V1_SX300.jpg"},
-  "Mare of Easttown":{imdb:"tt10569748",wiki:"Mare_of_Easttown",meta:"2021 · Crime Drama · 1 season · 7 eps",thumb:"https://m.media-amazon.com/images/M/MV5BYTY3NTNiMTYtNzZjMC00YTgyLWJjY2QtZmY5NDU3YjM0MzlhXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Sharp Objects":{imdb:"tt2649356",wiki:"Sharp_Objects_(miniseries)",meta:"2018 · Thriller · 1 season · 8 eps",thumb:"https://m.media-amazon.com/images/M/MV5BYzZlNGRhNzQtZmY1NS00ZDFmLTlhNDItNTQ3NTI2NTg2NjI0XkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_SX300.jpg"},
-  "Devs":{imdb:"tt8080204",wiki:"Devs_(miniseries)",meta:"2020 · Sci-Fi Thriller · 1 season · 8 eps",thumb:"https://m.media-amazon.com/images/M/MV5BZjFkMDA2NTYtMGE0Ny00YTYxLWE1YjYtNWE3NTdlNzM2NDUzXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg"},
-  "Pachinko":{imdb:"tt8888462",wiki:"Pachinko_(TV_series)",meta:"2022 · Historical Drama · 2 seasons · 16 eps",thumb:"https://m.media-amazon.com/images/M/MV5BMTIzMTI5MTctZDRhNy00NWM3LWE5NDctYmE5ZGQyMDFhNzk4XkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_SX300.jpg"},
-  "Sandman":{imdb:"tt1751634",wiki:"The_Sandman_(TV_series)",meta:"2022 · Fantasy · 2 seasons · 14 eps",thumb:"https://m.media-amazon.com/images/M/MV5BN2Y4ZmEwM2ItNWU0Mi00N2E0LThkMTgtMDc5Y2M5ZjZlODUwXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Only Murders in the Building":{imdb:"tt12851524",wiki:"Only_Murders_in_the_Building",meta:"2021 · Comedy Mystery · 4 seasons · 40 eps",thumb:"https://m.media-amazon.com/images/M/MV5BZjFiMGMyYWMtNGI0Yi00OGFiLTlkZTQtZTdmMjliN2IzMDllXkEyXkFqcGdeQXVyMTYzMDM0NTU@._V1_SX300.jpg"},
-  "The Studio":{imdb:"tt32773852",wiki:"The_Studio_(TV_series)",meta:"2025 · Comedy · 1 season · 10 eps",thumb:"https://m.media-amazon.com/images/M/MV5BMjBhYWQyMTYtNmYzZC00MmExLTlmZTMtMjVhN2UwY2ZlZjRhXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_SX300.jpg"},
-  "Attack on Titan":{imdb:"tt2560140",wiki:"Attack_on_Titan",meta:"2013 · Anime · 4 seasons · 94 eps",thumb:"https://m.media-amazon.com/images/M/MV5BNzc5MTczNDQtNDFjNi00ZDU5LWFkNzItOTE1NzQzMzRmMTZjXkEyXkFqcGdeQXVyNTgyNTA4MjM@._V1_SX300.jpg"},
-  "Black Doves":{imdb:"tt22728526",wiki:"Black_Doves",meta:"2024 · Thriller · 1 season · 6 eps",thumb:"https://m.media-amazon.com/images/M/MV5BMGZkZjMxODMtYzQ2My00YTkxLTlhMTgtZWNkYzZiNWI1YTk4XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "The Curse":{imdb:"tt14079994",wiki:"The_Curse_(TV_series)",meta:"2023 · Dark Comedy · 1 season · 10 eps",thumb:"https://m.media-amazon.com/images/M/MV5BNGZjMjgwZWItNGZmOS00NjJkLTlkMjAtMjNmZGJiZmQ2YWZhXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_SX300.jpg"},
-  "Swarm":{imdb:"tt14513804",wiki:"Swarm_(TV_series)",meta:"2023 · Thriller · 1 season · 7 eps",thumb:"https://m.media-amazon.com/images/M/MV5BM2I0OTFmZmQtOWQ5OS00YjNhLWIyMjktMjk4ZjdiZThiMDFkXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_SX300.jpg"},
-  "Underground Railroad":{imdb:"tt10688644",wiki:"The_Underground_Railroad_(miniseries)",meta:"2021 · Historical Drama · 1 season · 10 eps",thumb:"https://m.media-amazon.com/images/M/MV5BNWZlM2FkZWQtOTMyOC00NzQ2LTg1MDgtNTIxM2E3ZTZiNGZkXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Evil":{imdb:"tt9055008",wiki:"Evil_(TV_series)",meta:"2019 · Supernatural Drama · 4 seasons · 52 eps",thumb:"https://m.media-amazon.com/images/M/MV5BNzQ1NzkzNzI1NF5BMl5BanBnXkFtZTgwODA2NDgzNzM@._V1_SX300.jpg"},
-  "Rogue Heroes":{imdb:"tt12885882",wiki:"SAS:_Rogue_Heroes",meta:"2022 · War Drama · 2 seasons · 12 eps",thumb:"https://m.media-amazon.com/images/M/MV5BYTA1N2FmNWUtZTU3Ni00MTNkLTkxYjgtNGYzODYzMGJjZjZlXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Fauda":{imdb:"tt5164196",wiki:"Fauda",meta:"2015 · Thriller · 4 seasons · 48 eps",thumb:"https://m.media-amazon.com/images/M/MV5BNzRmNTI5ZTYtNzAzMi00ZGZmLTg0YTctNmIwYjZiNmViMzZiXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_SX300.jpg"},
-  "Kindred":{imdb:"tt8790548",wiki:"Kindred_(TV_series)",meta:"2022 · Sci-Fi Drama · 1 season · 8 eps",thumb:"https://m.media-amazon.com/images/M/MV5BNGZiZDU1Y2MtYTBiMy00OGJlLWExN2ItYmQwOWE1OTgxNjZkXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "The Agency":{imdb:"tt13741788",wiki:"The_Agency_(TV_series)",meta:"2024 · Spy Thriller · 1 season · 10 eps",thumb:"https://m.media-amazon.com/images/M/MV5BOGYxMWI2OTktMjcwNy00ZTAyLTk4OTQtNDI0MWE4NTkyYzBkXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Hemingway":{imdb:"tt10522326",wiki:"Hemingway_(film)",meta:"2021 · Documentary · 2 parts · 3.5 hrs",thumb:"https://m.media-amazon.com/images/M/MV5BYzJkMTRlOGYtMTY4YS00MDhiLWIzMGMtYzU4YWE5NTVmMjFiXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Get Back":{imdb:"tt9735318",wiki:"The_Beatles:_Get_Back",meta:"2021 · Music Documentary · 3 parts · 8 hrs",thumb:"https://m.media-amazon.com/images/M/MV5BNGEzYWE1NGQtNGEzZi00MGY4LTkzMjEtOTBmMjhmYThiNDIzXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_SX300.jpg"},
+const CAT_PALETTES={
+  TV:[
+    {bg:'#1a1a2e',fg:'#e94560',accent:'#16213e'},
+    {bg:'#0f3460',fg:'#e94560',accent:'#533483'},
+    {bg:'#16213e',fg:'#a8dadc',accent:'#1a1a2e'},
+    {bg:'#2d132c',fg:'#ee4540',accent:'#810034'},
+    {bg:'#1b1b2f',fg:'#e43f5a',accent:'#162447'}
+  ],
+  Movies:[
+    {bg:'#2c2c54',fg:'#ffe400',accent:'#474787'},
+    {bg:'#3d0000',fg:'#ff6b6b',accent:'#6b0000'},
+    {bg:'#1a1a1a',fg:'#c9a84c',accent:'#333'},
+    {bg:'#0d0d0d',fg:'#f5f5f5',accent:'#222'},
+    {bg:'#1c1c3a',fg:'#5c9ead',accent:'#2a2a52'}
+  ],
+  Books:[
+    {bg:'#2e4057',fg:'#f6ae2d',accent:'#1d2d44'},
+    {bg:'#3a3a3a',fg:'#c8d5b9',accent:'#2a2a2a'},
+    {bg:'#4a1942',fg:'#e8c1c5',accent:'#321330'},
+    {bg:'#1b4332',fg:'#b7e4c7',accent:'#0d2818'},
+    {bg:'#3d2b1f',fg:'#dba879',accent:'#2a1f17'}
+  ],
+  Podcasts:[
+    {bg:'#1a0533',fg:'#c77dff',accent:'#240046'},
+    {bg:'#10002b',fg:'#e0aaff',accent:'#3c096c'},
+    {bg:'#240046',fg:'#ff9ef5',accent:'#10002b'}
+  ],
+  YouTube:[
+    {bg:'#1d0000',fg:'#ff4500',accent:'#2d0000'},
+    {bg:'#0a0a0a',fg:'#ff0000',accent:'#1a1a1a'}
+  ],
+  Other:[
+    {bg:'#1b3a2d',fg:'#6fcf97',accent:'#123424'},
+    {bg:'#2d3436',fg:'#74b9ff',accent:'#1e2528'},
+    {bg:'#2d2d2d',fg:'#f0a500',accent:'#1a1a1a'}
+  ],
+  Games:[
+    {bg:'#0d0221',fg:'#00ff9f',accent:'#190535'},
+    {bg:'#000814',fg:'#ffd60a',accent:'#001d3d'},
+    {bg:'#10002b',fg:'#ff6b6b',accent:'#240046'},
+    {bg:'#001219',fg:'#94d2bd',accent:'#005f73'}
+  ]
+};
 
-  // Movies
-  "Past Lives":{imdb:"tt21328515",wiki:"Past_Lives_(film)",meta:"2023 · Romantic Drama · 106 min",thumb:"https://m.media-amazon.com/images/M/MV5BYWZkNTJmNjQtNjM5ZS00OWFkLWI2MzQtZDk3NzI2NjA1ZTllXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_SX300.jpg"},
-  "Poor Things":{imdb:"tt14230458",wiki:"Poor_Things_(film)",meta:"2023 · Sci-Fi Comedy · 141 min",thumb:"https://m.media-amazon.com/images/M/MV5BOGZjYmM4MmQtNGU0Ny00MTZlLWEyOGEtMGE0NjM3ZGRhMjY3XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Oppenheimer":{imdb:"tt15398776",wiki:"Oppenheimer_(film)",meta:"2023 · Historical Drama · 180 min",thumb:"https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_SX300.jpg"},
-  "Anora":{imdb:"tt28607951",wiki:"Anora_(film)",meta:"2024 · Drama · 139 min",thumb:"https://m.media-amazon.com/images/M/MV5BNTU0NTY4NjEtNjM3YS00YTQ4LWE3OWEtNzIwNGU1NDVjNTY1XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "The Boy and the Heron":{imdb:"tt6587046",wiki:"The_Boy_and_the_Heron",meta:"2023 · Animated Fantasy · 124 min",thumb:"https://m.media-amazon.com/images/M/MV5BZjZkNThjOGQtZjA5ZC00ZmZhLWEyNWMtNGZlNzJiYWZkZmJiXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Zone of Interest":{imdb:"tt7160372",wiki:"The_Zone_of_Interest_(film)",meta:"2023 · Historical Drama · 105 min",thumb:"https://m.media-amazon.com/images/M/MV5BNmM3NmMwYjItNzc3MC00YmRhLWI3NGQtOTRiNzVmYzZiMDEzXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "American Fiction":{imdb:"tt23055660",wiki:"American_Fiction_(film)",meta:"2023 · Satire · 117 min",thumb:"https://m.media-amazon.com/images/M/MV5BNzJhMGEyNjktNjU2NC00ZmNjLWIyYzItN2QxMjRiMTljZmM3XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Killers of the Flower Moon":{imdb:"tt5537002",wiki:"Killers_of_the_Flower_Moon_(film)",meta:"2023 · Historical Crime · 206 min",thumb:"https://m.media-amazon.com/images/M/MV5BMjMyOTM4MDMxNV5BMl5BanBnXkFtZTgwNjkwNjQ2NzE@._V1_SX300.jpg"},
-  "The Brutalist":{imdb:"tt8999762",wiki:"The_Brutalist_(film)",meta:"2024 · Epic Drama · 215 min",thumb:"https://m.media-amazon.com/images/M/MV5BMTkzMmMxNjQtMDliOS00YzM1LWI2MjItMDhiZGUwYmM4YjA1XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Everything Everywhere All at Once":{imdb:"tt6710474",wiki:"Everything_Everywhere_All_at_Once",meta:"2022 · Sci-Fi Comedy · 139 min",thumb:"https://m.media-amazon.com/images/M/MV5BYThiZjAzY2QtNDJkOS00OWZiLWIyMTgtYzk5Y2M3ZDVmMDk1XkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_SX300.jpg"},
-  "Burning":{imdb:"tt7282468",wiki:"Burning_(2018_film)",meta:"2018 · Mystery Drama · 148 min",thumb:"https://m.media-amazon.com/images/M/MV5BOWNiZDliZGQtZjI2Yy00MGNiLTk5NjMtZGYwOTM0OTZmNTk2XkEyXkFqcGdeQXVyNDgyODgxNjE@._V1_SX300.jpg"},
-  "After Hours":{imdb:"tt0088680",wiki:"After_Hours_(1985_film)",meta:"1985 · Dark Comedy · 97 min",thumb:"https://m.media-amazon.com/images/M/MV5BMmVlNjM4ZTgtN2I2Zi00MTExLWFhMzEtYjc5ZmI0ZmJiOGY5XkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SX300.jpg"},
-  "Pig":{imdb:"tt11003218",wiki:"Pig_(2021_film)",meta:"2021 · Drama · 92 min",thumb:"https://m.media-amazon.com/images/M/MV5BZjQzOThjYzQtMzBiZS00YzY2LTkwNGYtMDdkNTVmMTcxMGNiXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_SX300.jpg"},
-  "Banshees of Inisherin":{imdb:"tt11813216",wiki:"The_Banshees_of_Inisherin",meta:"2022 · Dark Comedy · 114 min",thumb:"https://m.media-amazon.com/images/M/MV5BMTQzNDkxMzI4OF5BMl5BanBnXkFtZTgwMDgyMzM0NzE@._V1_SX300.jpg"},
-  "The Killer":{imdb:"tt1136617",wiki:"The_Killer_(2023_film)",meta:"2023 · Thriller · 118 min",thumb:"https://m.media-amazon.com/images/M/MV5BYWQ2NzQ1NjUtMzE2Ny00ZmZlLWIxMDMtZjE0NWMzNDY2MjI4XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "Moonage Daydream":{imdb:"tt9671828",wiki:"Moonage_Daydream_(film)",meta:"2022 · Music Documentary · 140 min",thumb:"https://m.media-amazon.com/images/M/MV5BMjIyMzc1MzEzMl5BMl5BanBnXkFtZTgwNzg3MTE3NzE@._V1_SX300.jpg"},
-  "Being There":{imdb:"tt0078841",wiki:"Being_There_(film)",meta:"1979 · Drama/Comedy · 130 min",thumb:"https://m.media-amazon.com/images/M/MV5BNWI1ZTIzMjAtNmMzMy00MTY4LTlhMjAtOTJjMjZlNzA1ODMwXkEyXkFqcGdeQXVyNjYxMjM1Mjg@._V1_SX300.jpg"},
-  "Little Women":{imdb:"tt3281548",wiki:"Little_Women_(2019_film)",meta:"2019 · Period Drama · 135 min",thumb:"https://m.media-amazon.com/images/M/MV5BY2QzYTQyYzItMzAwYi00YjZlLThjNTUtMDM2OTY0YzMzYzBjXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"},
-  "12 Years a Slave":{imdb:"tt2024544",wiki:"12_Years_a_Slave_(film)",meta:"2013 · Historical Drama · 134 min",thumb:"https://m.media-amazon.com/images/M/MV5BMjExMTEzODkyN15BMl5BanBnXkFtZTcwNTU4NTc4OQ@@._V1_SX300.jpg"},
-  "Blazing Saddles":{imdb:"tt0071230",wiki:"Blazing_Saddles",meta:"1974 · Comedy Western · 93 min",thumb:"https://m.media-amazon.com/images/M/MV5BOTIzMDMwNDkxNF5BMl5BanBnXkFtZTcwNjMzOTMzMQ@@._V1_SX300.jpg"},
-  "Worst Person in the World":{imdb:"tt10370814",wiki:"The_Worst_Person_in_the_World",meta:"2021 · Romantic Drama · 128 min",thumb:"https://m.media-amazon.com/images/M/MV5BZGQxNzgwYzctNDUzOC00ZjljLTllNGQtZjJlNGFkMmE4NWJkXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_SX300.jpg"},
-  "Threads":{imdb:"tt0088683",wiki:"Threads_(1984_film)",meta:"1984 · Drama/War · 112 min",thumb:"https://m.media-amazon.com/images/M/MV5BOWNhM2EzNzMtOWM5NS00YTI2LWFhMTQtNzA4NTQxNzhjMTRiXkEyXkFqcGdeQXVyNjYxMjM1Mjg@._V1_SX300.jpg"},
-  "Memories of Murder":{imdb:"tt0353969",wiki:"Memories_of_Murder",meta:"2003 · Crime Drama · 132 min",thumb:"https://m.media-amazon.com/images/M/MV5BYTBjM2IwMjEtMzU0OC00N2U5LWFkMTctOGVkNDgwZjcwNTViXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SX300.jpg"},
-  "Ghost World":{imdb:"tt0162346",wiki:"Ghost_World_(film)",meta:"2001 · Drama/Comedy · 111 min",thumb:"https://m.media-amazon.com/images/M/MV5BMjkxMTkzNzEwOV5BMl5BanBnXkFtZTcwOTI5NDg1NA@@._V1_SX300.jpg"},
-  "Paprika":{imdb:"tt0851578",wiki:"Paprika_(2006_film)",meta:"2006 · Animated Sci-Fi · 90 min",thumb:"https://m.media-amazon.com/images/M/MV5BYzk0MTMwNjMtZWI3NS00MzllLWFhNjgtOGE5ZGIyMzgzNjIzXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_SX300.jpg"},
+function hashStr(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h);}
 
-  // Books
+function drawThumb(canvas,title,cat,genre){
+  const dpr=window.devicePixelRatio||1;
+  const w=canvas.offsetWidth||180;
+  const h=canvas.offsetHeight||270;
+  canvas.width=w*dpr;canvas.height=h*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const palettes=CAT_PALETTES[cat]||CAT_PALETTES.Movies;
+  const hash=hashStr(title);
+  const pal=palettes[hash%palettes.length];
+  ctx.fillStyle=pal.bg;ctx.fillRect(0,0,w,h);
+  ctx.save();ctx.globalAlpha=0.18;ctx.fillStyle=pal.accent;
+  ctx.beginPath();ctx.moveTo(0,h*0.55);ctx.lineTo(w,h*0.3);ctx.lineTo(w,h*0.7);ctx.lineTo(0,h*0.95);
+  ctx.closePath();ctx.fill();ctx.restore();
+  ctx.fillStyle=pal.fg;ctx.globalAlpha=0.6;ctx.fillRect(16,16,32,2);ctx.globalAlpha=1;
+  const initial=title.replace(/^(The|A|An) /i,'').charAt(0).toUpperCase();
+  ctx.font=`italic ${Math.round(h*0.38)}px 'EB Garamond', Georgia, serif`;
+  ctx.fillStyle=pal.fg;ctx.globalAlpha=0.15;ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(initial,w/2,h*0.52);ctx.globalAlpha=1;
+  const words=title.split(' ');const maxW=w-24;
+  ctx.font=`400 ${Math.round(h*0.072)}px 'Helvetica Neue', Helvetica, Arial, sans-serif`;
+  ctx.fillStyle='#ffffff';ctx.textAlign='left';ctx.textBaseline='top';
+  let lines=[],line='';
+  for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=word;}else{line=test;}}
+  if(line)lines.push(line);
+  lines=lines.slice(0,3);
+  const lineH=Math.round(h*0.082);const textY=h-16-lines.length*lineH;
+  lines.forEach((l,i)=>{ctx.fillText(l,12,textY+i*lineH);});
+  if(genre){
+    const gShort=genre.length>14?genre.substring(0,13)+'…':genre;
+    ctx.font=`300 ${Math.round(h*0.052)}px 'Helvetica Neue', Helvetica, Arial, sans-serif`;
+    ctx.fillStyle=pal.fg;ctx.globalAlpha=0.75;ctx.textAlign='right';ctx.textBaseline='top';
+    ctx.fillText(gShort.toUpperCase(),w-12,14);ctx.globalAlpha=1;
+  }
+}
+
+const META={
+  "Severance":{imdb:"tt11280740",wiki:"Severance_(TV_series)",meta:"2022 · Sci-Fi Drama · 2 seasons"},
+  "White Lotus":{imdb:"tt13406094",wiki:"The_White_Lotus",meta:"2021 · Drama · 3 seasons"},
+  "Adolescence":{imdb:"tt31316756",wiki:"Adolescence_(TV_series)",meta:"2025 · Crime Drama · 4 eps"},
+  "Beef":{imdb:"tt14079952",wiki:"Beef_(TV_series)",meta:"2023 · Dark Comedy · 10 eps"},
+  "Industry":{imdb:"tt10550912",wiki:"Industry_(TV_series)",meta:"2020 · Drama · 3 seasons"},
+  "The Patient":{imdb:"tt15158642",wiki:"The_Patient_(TV_series)",meta:"2022 · Thriller · 10 eps"},
+  "Twin Peaks":{imdb:"tt0098936",wiki:"Twin_Peaks",meta:"1990 · Mystery · 3 seasons"},
+  "The Night Of":{imdb:"tt2401256",wiki:"The_Night_Of",meta:"2016 · Crime Drama · 8 eps"},
+  "Mare of Easttown":{imdb:"tt10569748",wiki:"Mare_of_Easttown",meta:"2021 · Crime Drama · 7 eps"},
+  "Sharp Objects":{imdb:"tt2649356",wiki:"Sharp_Objects_(miniseries)",meta:"2018 · Thriller · 8 eps"},
+  "Devs":{imdb:"tt8080204",wiki:"Devs_(miniseries)",meta:"2020 · Sci-Fi Thriller · 8 eps"},
+  "Pachinko":{imdb:"tt8888462",wiki:"Pachinko_(TV_series)",meta:"2022 · Historical Drama · 2 seasons"},
+  "Sandman":{imdb:"tt1751634",wiki:"The_Sandman_(TV_series)",meta:"2022 · Fantasy · 2 seasons"},
+  "Only Murders in the Building":{imdb:"tt12851524",wiki:"Only_Murders_in_the_Building",meta:"2021 · Comedy Mystery · 4 seasons"},
+  "The Studio":{imdb:"tt32773852",wiki:"The_Studio_(TV_series)",meta:"2025 · Comedy · 10 eps"},
+  "Attack on Titan":{imdb:"tt2560140",wiki:"Attack_on_Titan",meta:"2013 · Anime · 4 seasons"},
+  "Black Doves":{imdb:"tt22728526",wiki:"Black_Doves",meta:"2024 · Thriller · 6 eps"},
+  "The Curse":{imdb:"tt14079994",wiki:"The_Curse_(TV_series)",meta:"2023 · Dark Comedy · 10 eps"},
+  "Swarm":{imdb:"tt14513804",wiki:"Swarm_(TV_series)",meta:"2023 · Thriller · 7 eps"},
+  "Underground Railroad":{imdb:"tt10688644",wiki:"The_Underground_Railroad_(miniseries)",meta:"2021 · Historical Drama · 10 eps"},
+  "Evil":{imdb:"tt9055008",wiki:"Evil_(TV_series)",meta:"2019 · Supernatural · 4 seasons"},
+  "Rogue Heroes":{imdb:"tt12885882",wiki:"SAS:_Rogue_Heroes",meta:"2022 · War Drama · 2 seasons"},
+  "Fauda":{imdb:"tt5164196",wiki:"Fauda",meta:"2015 · Thriller · 4 seasons"},
+  "Kindred":{imdb:"tt8790548",wiki:"Kindred_(TV_series)",meta:"2022 · Sci-Fi Drama · 8 eps"},
+  "The Agency":{imdb:"tt13741788",wiki:"The_Agency_(TV_series)",meta:"2024 · Spy Thriller · 10 eps"},
+  "Hemingway":{imdb:"tt10522326",wiki:"Hemingway_(film)",meta:"2021 · Documentary"},
+  "Get Back":{imdb:"tt9735318",wiki:"The_Beatles:_Get_Back",meta:"2021 · Music Documentary"},
+  "Past Lives":{imdb:"tt21328515",wiki:"Past_Lives_(film)",meta:"2023 · Romantic Drama · 106 min"},
+  "Poor Things":{imdb:"tt14230458",wiki:"Poor_Things_(film)",meta:"2023 · Sci-Fi Comedy · 141 min"},
+  "Oppenheimer":{imdb:"tt15398776",wiki:"Oppenheimer_(film)",meta:"2023 · Historical Drama · 180 min"},
+  "Anora":{imdb:"tt28607951",wiki:"Anora_(film)",meta:"2024 · Drama · 139 min"},
+  "The Boy and the Heron":{imdb:"tt6587046",wiki:"The_Boy_and_the_Heron",meta:"2023 · Animated Fantasy · 124 min"},
+  "Zone of Interest":{imdb:"tt7160372",wiki:"The_Zone_of_Interest_(film)",meta:"2023 · Historical Drama · 105 min"},
+  "American Fiction":{imdb:"tt23055660",wiki:"American_Fiction_(film)",meta:"2023 · Satire · 117 min"},
+  "Killers of the Flower Moon":{imdb:"tt5537002",wiki:"Killers_of_the_Flower_Moon_(film)",meta:"2023 · Historical Crime · 206 min"},
+  "The Brutalist":{imdb:"tt8999762",wiki:"The_Brutalist_(film)",meta:"2024 · Epic Drama · 215 min"},
+  "Everything Everywhere All at Once":{imdb:"tt6710474",wiki:"Everything_Everywhere_All_at_Once",meta:"2022 · Sci-Fi Comedy · 139 min"},
+  "Burning":{imdb:"tt7282468",wiki:"Burning_(2018_film)",meta:"2018 · Mystery Drama · 148 min"},
+  "After Hours":{imdb:"tt0088680",wiki:"After_Hours_(1985_film)",meta:"1985 · Dark Comedy · 97 min"},
+  "Pig":{imdb:"tt11003218",wiki:"Pig_(2021_film)",meta:"2021 · Drama · 92 min"},
+  "Banshees of Inisherin":{imdb:"tt11813216",wiki:"The_Banshees_of_Inisherin",meta:"2022 · Dark Comedy · 114 min"},
+  "The Killer":{imdb:"tt1136617",wiki:"The_Killer_(2023_film)",meta:"2023 · Thriller · 118 min"},
+  "Moonage Daydream":{imdb:"tt9671828",wiki:"Moonage_Daydream_(film)",meta:"2022 · Music Documentary · 140 min"},
+  "Being There":{imdb:"tt0078841",wiki:"Being_There_(film)",meta:"1979 · Drama/Comedy · 130 min"},
+  "Little Women":{imdb:"tt3281548",wiki:"Little_Women_(2019_film)",meta:"2019 · Period Drama · 135 min"},
+  "12 Years a Slave":{imdb:"tt2024544",wiki:"12_Years_a_Slave_(film)",meta:"2013 · Historical Drama · 134 min"},
+  "Blazing Saddles":{imdb:"tt0071230",wiki:"Blazing_Saddles",meta:"1974 · Comedy Western · 93 min"},
+  "Worst Person in the World":{imdb:"tt10370814",wiki:"The_Worst_Person_in_the_World",meta:"2021 · Romantic Drama · 128 min"},
+  "Threads":{imdb:"tt0088683",wiki:"Threads_(1984_film)",meta:"1984 · Drama/War · 112 min"},
+  "Memories of Murder":{imdb:"tt0353969",wiki:"Memories_of_Murder",meta:"2003 · Crime Drama · 132 min"},
+  "Ghost World":{imdb:"tt0162346",wiki:"Ghost_World_(film)",meta:"2001 · Drama/Comedy · 111 min"},
+  "Paprika":{imdb:"tt0851578",wiki:"Paprika_(2006_film)",meta:"2006 · Animated Sci-Fi · 90 min"},
   "Project Hail Mary":{wiki:"Project_Hail_Mary",meta:"2021 · Andy Weir · ~476 pages"},
   "The Martian":{wiki:"The_Martian_(novel)",meta:"2011 · Andy Weir · ~369 pages"},
   "Hyperion":{wiki:"Hyperion_(Simmons_novel)",meta:"1989 · Dan Simmons · ~482 pages"},
@@ -268,80 +315,81 @@ const META = {
   "Obstacle is the Way":{wiki:"The_Obstacle_Is_the_Way",meta:"2014 · Ryan Holiday · ~224 pages"},
   "Lush Life":{wiki:"Lush_Life_(Price_novel)",meta:"2008 · Richard Price · ~455 pages"},
   "Every Good Boy Does Fine":{wiki:"Every_Good_Boy_Does_Fine_(memoir)",meta:"2022 · Jeremy Denk · ~352 pages"},
-
-  // Games
-  "Disco Elysium":{imdb:"tt11080016",wiki:"Disco_Elysium",meta:"2019 · RPG · PC / Console",thumb:"https://upload.wikimedia.org/wikipedia/en/7/7d/Disco_Elysium_cover_art.jpg"},
-  "Baldur's Gate 3":{imdb:"tt13622776",wiki:"Baldur%27s_Gate_3",meta:"2023 · RPG · PC / Console",thumb:"https://upload.wikimedia.org/wikipedia/en/a/a1/Baldur%27s_Gate_3_promotional_art.jpg"},
-  "Assassin's Creed Shadows":{wiki:"Assassin%27s_Creed_Shadows",meta:"2025 · Action RPG · PS5 / Xbox / PC",thumb:"https://upload.wikimedia.org/wikipedia/en/2/27/Assassin%27s_Creed_Shadows_cover.jpg"},
-  "Death Stranding 2":{wiki:"Death_Stranding_2:_On_the_Beach",meta:"2025 · Action · PS5",thumb:"https://upload.wikimedia.org/wikipedia/en/f/f3/Death_Stranding_2_cover_art.jpg"},
-
-  // Podcasts
+  "Disco Elysium":{imdb:"tt11080016",wiki:"Disco_Elysium",meta:"2019 · RPG · PC / Console"},
+  "Baldur's Gate 3":{imdb:"tt13622776",wiki:"Baldur%27s_Gate_3",meta:"2023 · RPG · PC / Console"},
+  "Assassin's Creed Shadows":{wiki:"Assassin%27s_Creed_Shadows",meta:"2025 · Action RPG · PS5 / Xbox / PC"},
+  "Death Stranding 2":{wiki:"Death_Stranding_2:_On_the_Beach",meta:"2025 · Action · PS5"},
   "Hamilton's Pharmacopeia":{wiki:"Hamilton%27s_Pharmacopeia",meta:"2016 · Vice · 3 seasons"},
   "The Joe Rogan Experience":{wiki:"The_Joe_Rogan_Experience",meta:"2009–present · Spotify"},
   "Last Podcast on the Left":{wiki:"Last_Podcast_on_the_Left",meta:"2011–present · True Crime Comedy"}
 };
 
-const CATEGORIES = ["TV","Movies","Books","Podcasts","YouTube","Other","Games"];
-const ICONS = {TV:"▶",Movies:"◉",Books:"◈",Podcasts:"◎",YouTube:"▷",Other:"◇",Games:"◆"};
+const CATEGORIES=["TV","Movies","Books","Podcasts","YouTube","Other","Games"];
+const ICONS={TV:"▶",Movies:"◉",Books:"◈",Podcasts:"◎",YouTube:"▷",Other:"◇",Games:"◆"};
 
 function loadState(){try{return JSON.parse(localStorage.getItem('theList_criterion_v1'))||{};}catch{return {};}}
 function saveState(s){localStorage.setItem('theList_criterion_v1',JSON.stringify(s));}
 function loadUserItems(){try{return JSON.parse(localStorage.getItem('theListUser_criterion_v1'))||[];}catch{return [];}}
 function saveUserItems(u){localStorage.setItem('theListUser_criterion_v1',JSON.stringify(u));}
 
-let state=loadState(), userItems=loadUserItems(), activeTab=CATEGORIES[0];
+let state=loadState(),userItems=loadUserItems(),activeTab=CATEGORIES[0];
 
 function allItems(cat){
-  const genreMap=GENRES[cat]||{};
-  const byGenre={};
-  for(const [g,titles] of Object.entries(genreMap)){
-    byGenre[g]=titles.map(t=>({title:t,type:cat,source:'baseline'}));
-  }
+  const genreMap=GENRES[cat]||{};const byGenre={};
+  for(const[g,titles]of Object.entries(genreMap)){byGenre[g]=titles.map(t=>({title:t,type:cat,genre:g,source:'baseline'}));}
   const extra=[];
   userItems.filter(m=>m.type===cat).forEach(m=>{
     const src={...m,source:'user'};
-    if(m.genre&&byGenre[m.genre]){byGenre[m.genre].push(src);}
-    else{extra.push(src);}
+    if(m.genre&&byGenre[m.genre]){byGenre[m.genre].push(src);}else{extra.push(src);}
   });
   if(extra.length){byGenre['Uncategorized']=extra;}
   return byGenre;
 }
-
 function allFlat(cat){return Object.values(allItems(cat)).flat();}
-function getKey(item){return (item.source==='user'?'u:':'b:')+item.type+':'+item.title;}
-
-function imgSrc(item){const m=META[item.title];return m&&m.thumb?m.thumb:null;}
-function wikiLink(item){
-  const m=META[item.title];
-  const slug=m&&m.wiki?m.wiki:encodeURIComponent(item.title.replace(/ /g,'_'));
-  return 'https://en.wikipedia.org/wiki/'+slug;
-}
-function imdbLink(item){
-  const m=META[item.title];
-  if(m&&m.imdb)return 'https://www.imdb.com/title/'+m.imdb+'/';
-  return 'https://www.imdb.com/find?q='+encodeURIComponent(item.title);
-}
+function getKey(item){return(item.source==='user'?'u:':'b:')+item.type+':'+item.title;}
+function wikiLink(item){const m=META[item.title];const slug=m&&m.wiki?m.wiki:encodeURIComponent(item.title.replace(/ /g,'_'));return 'https://en.wikipedia.org/wiki/'+slug;}
+function imdbLink(item){const m=META[item.title];if(m&&m.imdb)return 'https://www.imdb.com/title/'+m.imdb+'/';return 'https://www.imdb.com/find?q='+encodeURIComponent(item.title);}
 function itemMeta(item){const m=META[item.title];return m?m.meta:'';}
 
-let cardCounter=0;
-function renderCard(item,idx){
-  const key=getKey(item);
-  const s=state[key]||{};
-  const done=!!s.done;
-  const rating=s.rating||0;
-  const review=s.review||'';
-  const safeKey=key.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');
-  const id='card-'+(cardCounter++);
-  const thumb=imgSrc(item);
-  const hasImdb=(item.type==='TV'||item.type==='Movies'||item.type==='Games');
-  const meta=itemMeta(item);
-  const numStr=String(idx+1).padStart(3,'0');
+const confCanvas=document.getElementById('confetti-canvas');
+const confCtx=confCanvas.getContext('2d');
+let particles=[],confettiRunning=false,animFrame=null;
+const CCOLORS=['#c41e1e','#f5c518','#4a90e2','#7ed321','#f5a623','#bd10e0','#ff6b6b','#ffd93d'];
+function launchConfetti(){
+  confCanvas.style.display='block';confCanvas.width=window.innerWidth;confCanvas.height=window.innerHeight;
+  particles=[];
+  for(let i=0;i<120;i++){particles.push({x:Math.random()*confCanvas.width,y:-10-Math.random()*100,r:Math.random()*6+3,color:CCOLORS[Math.floor(Math.random()*CCOLORS.length)],vx:(Math.random()-0.5)*4,vy:Math.random()*3+2,angle:Math.random()*360,spin:(Math.random()-0.5)*6,shape:Math.random()>0.5?'rect':'circle',w:Math.random()*10+5,h:Math.random()*5+3,opacity:1});}
+  confettiRunning=true;if(animFrame)cancelAnimationFrame(animFrame);animateConfetti();
+  setTimeout(()=>{confettiRunning=false;},3200);
+}
+function animateConfetti(){
+  confCtx.clearRect(0,0,confCanvas.width,confCanvas.height);let alive=false;
+  for(const p of particles){
+    p.x+=p.vx;p.y+=p.vy;p.angle+=p.spin;p.vy+=0.05;
+    if(p.y<confCanvas.height+20){alive=true;}
+    p.opacity=Math.max(0,p.opacity-(p.y>confCanvas.height*0.75?0.02:0));
+    confCtx.save();confCtx.globalAlpha=p.opacity;confCtx.translate(p.x,p.y);confCtx.rotate(p.angle*Math.PI/180);confCtx.fillStyle=p.color;
+    if(p.shape==='circle'){confCtx.beginPath();confCtx.arc(0,0,p.r,0,Math.PI*2);confCtx.fill();}
+    else{confCtx.fillRect(-p.w/2,-p.h/2,p.w,p.h);}
+    confCtx.restore();
+  }
+  if(alive||confettiRunning){animFrame=requestAnimationFrame(animateConfetti);}
+  else{confCtx.clearRect(0,0,confCanvas.width,confCanvas.height);confCanvas.style.display='none';}
+}
 
+let cardCounter=0;
+let pendingCanvases=[];
+
+function renderCard(item,idx){
+  const key=getKey(item);const s=state[key]||{};const done=!!s.done;const rating=s.rating||0;const review=s.review||'';
+  const safeKey=key.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+  const id='card-'+(cardCounter++);const cid='thumb-'+id;
+  const hasImdb=(item.type==='TV'||item.type==='Movies'||item.type==='Games');
+  const meta=itemMeta(item);const numStr=String(idx+1).padStart(3,'0');
+  pendingCanvases.push({cid,title:item.title,cat:item.type,genre:item.genre||''});
   return `<div class="media-card ${done?'done':''}" id="${id}">
     <div class="card-thumb">
-      ${thumb
-        ?`<div class="thumb-placeholder">${item.title.charAt(0)}</div><img src="${thumb}" alt="${item.title}" loading="lazy" onload="this.classList.add('loaded')" onerror="this.style.display='none'">`
-        :`<div class="thumb-placeholder">${item.title.charAt(0)}</div>`}
+      <canvas id="${cid}" style="width:100%;height:100%;display:block"></canvas>
       <div class="done-overlay"><div class="done-check">&#10003;</div></div>
     </div>
     <div class="card-body">
@@ -356,123 +404,88 @@ function renderCard(item,idx){
     <div class="card-actions">
       <div style="display:flex;align-items:center;gap:8px">
         <button class="check-btn ${done?'checked':''}" onclick="toggleDone('${safeKey}')">${done?'&#10003;':''}</button>
-        ${done?`<div class="stars-row">${[1,2,3,4,5].map(n=>`<span class="star ${rating>=n?'lit':''}" onclick="setRating('${safeKey}',${n})">&#9733;</span>`).join('')}</div>`:''}`+
-      `</div>
+        ${done?`<div class="stars-row">${[1,2,3,4,5].map(n=>`<span class="star ${rating>=n?'lit':''}" onclick="setRating('${safeKey}',${n})">&#9733;</span>`).join('')}</div>`:''}
+      </div>
       ${item.source==='user'?`<button class="del-btn" onclick="delItem('${safeKey}')">&#10005;</button>`:''}
     </div>
-    ${done?`<div class="review-area">
-      ${review
-        ?`<div class="review-display">&ldquo;${review}&rdquo;</div>`
-        :`<textarea class="review-input" id="rv-${id}" placeholder="Write a note&hellip;" rows="2">${review}</textarea>
-          <button class="save-btn" onclick="saveReview('${safeKey}','${id}')">Save</button>`}
-    </div>`:''}
+    ${done?`<div class="review-area">${review?`<div class="review-display">&ldquo;${review}&rdquo;</div>`:`<textarea class="review-input" id="rv-${id}" placeholder="Write a note&hellip;" rows="2">${review}</textarea><button class="save-btn" onclick="saveReview('${safeKey}','${id}')">Save</button>`}</div>`:''}
   </div>`;
 }
 
+function paintPendingCanvases(){
+  for(const{cid,title,cat,genre}of pendingCanvases){
+    const el=document.getElementById(cid);
+    if(el){drawThumb(el,title,cat,genre);}
+  }
+  pendingCanvases=[];
+}
+
 function renderGenres(cat){
-  const byGenre=allItems(cat);
-  let html='';let globalIdx=0;
-  for(const [genre,items] of Object.entries(byGenre)){
+  const byGenre=allItems(cat);let html='';let globalIdx=0;
+  for(const[genre,items]of Object.entries(byGenre)){
     if(!items.length)continue;
-    html+=`<div class="genre-group">
-      <div class="genre-label">${genre} <span style="margin-left:6px;opacity:0.5">${items.length}</span></div>
-      <div class="items-grid">${items.map((it,i)=>renderCard(it,globalIdx+i)).join('')}</div>
-    </div>`;
+    html+=`<div class="genre-group"><div class="genre-label">${genre} <span style="margin-left:6px;opacity:0.5">${items.length}</span></div><div class="items-grid">${items.map((it,i)=>renderCard(it,globalIdx+i)).join('')}</div></div>`;
     globalIdx+=items.length;
   }
   return html;
 }
-
-function genreOptions(cat){
-  return Object.keys(GENRES[cat]||{}).map(g=>`<option value="${g}">${g}</option>`).join('');
-}
-
+function genreOptions(cat){return Object.keys(GENRES[cat]||{}).map(g=>`<option value="${g}">${g}</option>`).join('');}
 function renderSection(cat){
-  const flat=allFlat(cat);
-  const done=flat.filter(i=>(state[getKey(i)]||{}).done).length;
-  const catId=cat.replace(/[^a-z0-9]/gi,'_');
+  const flat=allFlat(cat);const done=flat.filter(i=>(state[getKey(i)]||{}).done).length;const catId=cat.replace(/[^a-z0-9]/gi,'_');
   return `<div class="section ${cat===activeTab?'active':''}" id="sec-${catId}">
-    <div class="section-head">
-      <h2>${cat}</h2>
-      <div class="section-meta"><strong>${done}</strong> of ${flat.length} completed</div>
-    </div>
+    <div class="section-head"><h2>${cat}</h2><div class="section-meta"><strong>${done}</strong> of ${flat.length} completed</div></div>
+    <div class="add-panel"><h3>Add to ${cat}</h3><div class="add-fields">
+      <input type="text" id="add-title-${catId}" placeholder="Title" />
+      <select id="add-genre-${catId}"><option value="">Genre (optional)</option>${genreOptions(cat)}</select>
+      <input type="text" id="add-note-${catId}" placeholder="Notes (optional)" />
+      <button class="add-submit" onclick="addItem('${cat}')">Add &rarr;</button>
+    </div></div>
     ${renderGenres(cat)}
-    <div class="add-panel">
-      <h3>Add to ${cat}</h3>
-      <div class="add-fields">
-        <input type="text" id="add-title-${catId}" placeholder="Title" />
-        <select id="add-genre-${catId}"><option value="">Genre (optional)</option>${genreOptions(cat)}</select>
-        <input type="text" id="add-note-${catId}" placeholder="Notes (optional)" />
-        <button class="add-submit" onclick="addItem('${cat}')">Add &rarr;</button>
-      </div>
-    </div>
   </div>`;
 }
-
 function renderTabs(){
   document.getElementById('tabs').innerHTML=CATEGORIES.map(cat=>{
-    const flat=allFlat(cat);
-    const done=flat.filter(i=>(state[getKey(i)]||{}).done).length;
-    return `<div class="tab ${cat===activeTab?'active':''}" onclick="switchTab('${cat}')">
-      ${ICONS[cat]} ${cat}<span class="tab-count">${done}/${flat.length}</span>
-    </div>`;
+    const flat=allFlat(cat);const done=flat.filter(i=>(state[getKey(i)]||{}).done).length;
+    return `<div class="tab ${cat===activeTab?'active':''}" onclick="switchTab('${cat}')">${ICONS[cat]} ${cat}<span class="tab-count">${done}/${flat.length}</span></div>`;
   }).join('');
 }
-
 function updateTotal(){
   let total=0,done=0;
   CATEGORIES.forEach(cat=>{const f=allFlat(cat);total+=f.length;done+=f.filter(i=>(state[getKey(i)]||{}).done).length;});
-  const el=document.getElementById('total-pill');
-  if(el)el.innerHTML=`<strong>${done}</strong> of ${total} completed`;
+  const el=document.getElementById('total-pill');if(el)el.innerHTML=`<strong>${done}</strong> of ${total} completed`;
 }
-
 function render(){
-  cardCounter=0;
+  cardCounter=0;pendingCanvases=[];
   renderTabs();
   document.getElementById('main').innerHTML=CATEGORIES.map(renderSection).join('');
   updateTotal();
+  requestAnimationFrame(()=>requestAnimationFrame(paintPendingCanvases));
 }
-
 function switchTab(cat){activeTab=cat;render();window.scrollTo(0,0);}
-
 function toggleDone(key){
-  state[key]=state[key]||{};
-  state[key].done=!state[key].done;
-  saveState(state);render();
+  state[key]=state[key]||{};const wasDone=state[key].done;state[key].done=!wasDone;saveState(state);render();
+  if(!wasDone)launchConfetti();
 }
-function setRating(key,n){
-  state[key]=state[key]||{};
-  state[key].rating=n;
-  saveState(state);render();
-}
+function setRating(key,n){state[key]=state[key]||{};state[key].rating=n;saveState(state);render();}
 function saveReview(key,cardId){
-  const el=document.getElementById('rv-'+cardId);
-  if(!el)return;
-  state[key]=state[key]||{};
-  state[key].review=el.value.trim();
-  saveState(state);render();
+  const el=document.getElementById('rv-'+cardId);if(!el)return;
+  state[key]=state[key]||{};state[key].review=el.value.trim();saveState(state);render();
 }
 function addItem(cat){
   const catId=cat.replace(/[^a-z0-9]/gi,'_');
   const titleEl=document.getElementById('add-title-'+catId);
   const genreEl=document.getElementById('add-genre-'+catId);
   const noteEl=document.getElementById('add-note-'+catId);
-  const title=titleEl.value.trim();
-  if(!title){titleEl.focus();return;}
+  const title=titleEl.value.trim();if(!title){titleEl.focus();return;}
   userItems.push({title,type:cat,note:noteEl.value.trim(),genre:genreEl.value||'',source:'user'});
   saveUserItems(userItems);render();
 }
 function delItem(key){
-  const withoutPrefix=key.replace(/^u:/,'');
-  const ci=withoutPrefix.indexOf(':');
-  const type=withoutPrefix.substring(0,ci);
-  const title=withoutPrefix.substring(ci+1);
+  const withoutPrefix=key.replace(/^u:/,'');const ci=withoutPrefix.indexOf(':');
+  const type=withoutPrefix.substring(0,ci);const title=withoutPrefix.substring(ci+1);
   userItems=userItems.filter(i=>!(i.type===type&&i.title===title));
-  saveUserItems(userItems);
-  delete state[key];
-  saveState(state);render();
+  saveUserItems(userItems);delete state[key];saveState(state);render();
 }
-
 render();
 </script>
 </body>
